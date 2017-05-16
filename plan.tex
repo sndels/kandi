@@ -1,0 +1,82 @@
+\documentclass[english,12pt,a4paper,pdftex,elec,utf8]{aaltothesis}
+
+%% Kirjoita y.o. \documentclass optioiksi
+%% korkeakoulusi näistä: arts, biz, chem, elec, eng, sci
+%% editorisi käyttämä merkkikoodaustapa: utf8, latin1
+
+%% Käytä näitä, jos kirjoitat englanniksi. Katso englanninokset tiedostosta
+%% thesistemplate.tex.
+%\documentclass[english,12pt,a4paper,pdftex,elec,utf8]{aaltothesis}
+%\documentclass[english,12pt,a4paper,dvips]{aaltothesis}
+
+\usepackage[english]{babel}
+\usepackage[fixlanguage]{babelbib}
+\usepackage{cite}
+\usepackage[section]{placeins} %prevent figures from floating allover
+\usepackage{cleveref} % for cref
+\usepackage{booktabs} % for midrule etc.
+\usepackage{multirow} % for multirow table
+\usepackage{siunitx} % for \ang
+\usepackage{float}
+\usepackage{subfig} % for subfigures
+\include{./acronyms}
+
+%% Aloita uudet kappaleet uudelta sivulta
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+\usepackage{graphicx}
+
+\usepackage[numbers]{natbib}
+
+\usepackage{pdfpages}
+
+\selectbiblanguage{english}
+\bibliographystyle{babunsrt}
+
+%% Matematiikan fontteja, symboleja ja muotoiluja lisää, näitä tarvitaan usein 
+\usepackage{amsfonts,amssymb,amsbsy,amsmath}
+
+%% Saat pdf-tiedoston viittaukset ja linkit kuntoon seuraavalla paketilla.
+\usepackage{hyperref}
+\hypersetup{pdfpagemode=UseNone, pdfstartview=FitH,
+  colorlinks=true,urlcolor=red,linkcolor=blue,citecolor=black,
+  pdftitle={Default Title, Modify},pdfauthor={Your Name},
+  pdfkeywords={Modify keywords}}
+
+%% Kaikki mikä paperille tulostuu, on tämän jälkeen
+\begin{document}
+
+%% Kansilehti
+%%\input{./cover}
+\includepdf[pages=-, offset=75 -75]{./content/plancover.pdf}
+
+%% Tiivistelmä
+%%\input{./abstract}
+
+%% Sisällysluettelo
+\thesistableofcontents{}
+
+%% Acronyms
+%%\input{./abbreviations}
+
+%% Sivulaskurin viilausta opinnäytteen vaatimusten mukaan:
+%% Aloitetaan sivunumerointi arabialaisilla numeroilla (ja jätetään
+%% leipätekstin ensimmäinen sivu tyhjäksi, 
+\cleardoublepage{}
+\storeinipagenumber{}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%% Ensimmäinen sivu tyhjäksi
+\thispagestyle{empty}
+
+%% Sisältö
+\input{./content/plancontent}
+
+\clearpage
+%% Lähdeluettelo
+
+\thesisbibliography{}
+\bibliography{plan}
+
+\end{document}
