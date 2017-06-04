@@ -20,7 +20,6 @@
 \usepackage{float}
 \usepackage{subfig} % for subfigures
 \usepackage[toc,page]{appendix}
-\usepackage[a-1b]{pdfx}
 \usepackage[yyyymmdd,hhmmss]{datetime}
 
 \input{./content/acronyms.tex}
@@ -39,7 +38,7 @@
 \usepackage{amsfonts,amssymb,amsbsy,amsmath}
 
 %% Saat pdf-tiedoston viittaukset ja linkit kuntoon seuraavalla paketilla.
-\usepackage{hyperref}
+\usepackage[pdfa]{hyperref}
 \hypersetup{pdfpagemode=UseNone, pdfstartview=FitH,
   colorlinks=true,urlcolor=red,linkcolor=blue,citecolor=black,
   pdftitle={Default Title, Modify},pdfauthor={Your Name},
@@ -58,7 +57,7 @@
 
 %% Kansilehti
 \input{./content/cover}
- 
+
 %% Tiivistelmä
 \input{./content/abstract}
 
@@ -72,7 +71,7 @@
 
 %% Sivulaskurin viilausta opinnäytteen vaatimusten mukaan:
 %% Aloitetaan sivunumerointi arabialaisilla numeroilla (ja jätetään
-%% leipätekstin ensimmäinen sivu tyhjäksi, 
+%% leipätekstin ensimmäinen sivu tyhjäksi,
 \cleardoublepage{}
 \storeinipagenumber{}
 \pagenumbering{arabic}
