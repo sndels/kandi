@@ -22,7 +22,7 @@
 \usepackage[toc,page]{appendix}
 \usepackage[yyyymmdd,hhmmss]{datetime}
 
-\input{./content/acronyms.tex}
+\input{./content/abbreviations.tex}
 
 %% Aloita uudet kappaleet uudelta sivulta
 \usepackage{titlesec}
@@ -45,12 +45,12 @@
   pdfkeywords={Modify keywords}}
 
 %% Shows comments in boxes
-%\newcommand{\authorcomment}[1]{\fbox{\begin{minipage}{\textwidth}Comment by author:\\#1\end{minipage}}}
-%\newcommand{\advisorcomment}[1]{\fbox{\begin{minipage}{\textwidth}Comment by advisor:\\#1\end{minipage}}}
+\newcommand{\authorcomment}[1]{\fbox{\begin{minipage}{\textwidth}Comment by author:\\#1\end{minipage}}}
+\newcommand{\advisorcomment}[1]{\fbox{\begin{minipage}{\textwidth}Comment by advisor:\\#1\end{minipage}}}
 
 %% Hides comments
-\newcommand{\authorcomment}[1]{}
-\newcommand{\advisorcomment}[1]{}
+%\newcommand{\authorcomment}[1]{}
+%\newcommand{\advisorcomment}[1]{}
 
 %% Kaikki mikä paperille tulostuu, on tämän jälkeen
 \begin{document}
@@ -65,9 +65,7 @@
 \thesistableofcontents{}
 
 %% Symbolit ja lyhenteet
-\mysection{Abbreviations}
-\printacronyms[include-classes=acronym,name=Acronyms]
-
+\printacronyms[include-classes=abbrev,name=Abbreviations]
 
 %% Sivulaskurin viilausta opinnäytteen vaatimusten mukaan:
 %% Aloitetaan sivunumerointi arabialaisilla numeroilla (ja jätetään
