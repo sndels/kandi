@@ -19,7 +19,7 @@ input, through computations, to the output with no \textbf{feedback} connections
 Each layer consist of several \textbf{units} with a weight and activation function. The
 weights of a layer are commonly represented by a matrix by which the input-vector is
 multiplied. Units in a layer also have the same activation function. Simply put, a unit's
-activation function is fed by a sum of it's weighted inputs and the result is output to 
+activation function is fed by a sum of its weighted inputs and the result is output to 
 the next layer alongside the other units' outputs. A commonly used unit type is the 
 \textbf{\ac{relu}}, which is defined by the activation function $g (z) = \max\{0,z\}$.
 It provides a nonlinear transformation while being comparable to linear models in terms
@@ -30,16 +30,28 @@ Before training, the weights of a \ac{mlp} are initialized to small random value
 biases to zero or small positive values. Then an algorithm called \textbf{stochastic
 gradient descent} is commonly applied alongside a training dataset. The basic procedure
 is to calculate the error of the netwok's output values compared to the desired ones 
-using a \textbf{loss function}. It's gradient can then be calculated for example by
-\textbf{back-porpagation}, which feeds the errors back through the network to assign
-a contribution value to each unit. These values are then used to calculate the
-gradient of the loss function relative to the weights. Each weight is adjusted slightly
-to the opposite sign to minimize the loss function.
+using a \textbf{loss function}. The function's gradient can then be calculated for
+example by \textbf{back-porpagation}, which feeds the errors back through the network
+to assign a contribution value to each unit. These values are then used to calculate
+the gradient of the loss function relative to the weights. Each weight is adjusted
+slightly to the opposite sign to minimize the loss function.
 \\\cite{DEEP_LEARNING}
 \authorcomment{how to cite for the whole page?}
 
 \subsection{Convolutional networks}
 
-\authorcomment{what is a convolutional network, differences to a generic network}
-\authorcomment{how do the layers function}
-\authorcomment{benefits}
+A \ac{cnn} is simply a \ac{nn} that uses convolution instead of general matrix
+multiplication in at least one of its layers. The main benefits of convolution in \ac{nn}s
+are that it's dramatically more efficient in terms of memory requirements, it reduces
+the amount of computation needed and it makes it possible to work with variable input
+sizes.
+
+A typical \ac{cnn} layer consists of three stages: a convolution stage, detector stage
+and pooling stage. First, a \textbf{kernel} is applied on all positions in the input
+data. This means that a linear activation function is fed by the matrix product of the
+input location and the kernel's weight matrix. In the detector stage, the results are
+then run through a non-linear activation, for example a \ac{relu}. Finally, a \textbf{pooling
+function} is used to combine the results of multiple nearby outputs as the final output.
+
+Convolutional layers enable indirect connections to all or most of the input data deeper
+in the network even when individual layers' connections are very sparse.
