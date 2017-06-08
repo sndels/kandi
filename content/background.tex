@@ -5,27 +5,39 @@
 A \ac{dnn} is most commonly defined as a \ac{nn}, that has a \textbf{visible} input
 and output layer with several \textbf{hidden layers} between them. The distinction
 between visible and hidden layers is important because training only evaluates the
-output layer's performance. During training, a learning algorithm optimizes the
+output layer's performance. During training, a \textbf{learning algorithm} optimizes the
 individual hidden layers to best approximate the desired output of the whole network.
 
 The input layer takes in the data to be processed, which typically means an array
 of color values in the case of object tracking. These values are then processed
 by the hidden layers and finally the output layer produces the target's position
 in the frame. These models usually come in the form of a \textbf{Feedforward neural network}
-or \textbf{\ac{mlp}}. The name comes from the fact that information flows from
-the input, through computations, to the output with no \textbf{feedback} connections.
+or \textbf{\ac{mlp}}. The name comes from the fact that information flows from the
+input, through computations, to the output with no \textbf{feedback} connections.
 \\\authorcomment{picture from eg.\ deeplearningbook page 174?}
 
-Each layer consist of several units with a weight and activation function. The weights
-of a layer are commonly represented by a matrix by which the input is multiplied.
-Simply put, a unit's activation function is fed by a sum of it's weighted inputs
-and the result is output to the next layer. A commonly used unit type is the \ac{relu},
-which is defined by the activation function $g (z) = \max\{0,z\}$. It provides a
-nonlinear transformation while being comparable to linear models in terms of
-generalizing well and being easy to optimize.
-\authorcomment{how does training work}
-\cite{DEEP_LEARNING}
-\authorcomment{how to cite for the whole page? which isbn to use for the github-version?}
+Each layer consist of several \textbf{units} with a weight and activation function. The
+weights of a layer are commonly represented by a matrix by which the input-vector is
+multiplied. Units in a layer also have the same activation function. Simply put, a unit's
+activation function is fed by a sum of it's weighted inputs and the result is output to 
+the next layer alongside the other units' outputs. A commonly used unit type is the 
+\textbf{\ac{relu}}, which is defined by the activation function $g (z) = \max\{0,z\}$.
+It provides a nonlinear transformation while being comparable to linear models in terms
+of generalizing well and being easy to optimize.
+\authorcomment{explain biases also}
+
+Before training, the weights of a \ac{mlp} are initialized to small random values and 
+biases to zero or small positive values. Then an algorithm called \textbf{stochastic
+gradient descent} is commonly applied alongside a training dataset. The basic procedure
+is to calculate the error of the netwok's output values compared to the desired ones 
+using a \textbf{loss function}. It's gradient can then be calculated for example by
+\textbf{back-porpagation}, which feeds the errors back through the network to assign
+a contribution value to each unit. These values are then used to calculate the
+gradient of the loss function relative to the weights. Each weight is adjusted slightly
+to the opposite sign to minimize the loss function.
+\\\cite{DEEP_LEARNING}
+\authorcomment{how to cite for the whole page?}
+
 \subsection{Convolutional networks}
 
 \authorcomment{what is a convolutional network, differences to a generic network}
