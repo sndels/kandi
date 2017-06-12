@@ -1,30 +1,33 @@
-\section{Background}
+\section{Deep Learning}
+
+This chapter introduces the basic concepts and is based on the book Deep Learning by
+Goodfellow et. al. \cite{DEEP_LEARNING}
 
 \subsection{Deep neural networks}
 
-A \ac{dnn} is most commonly defined as a \ac{nn}, that has a \textbf{visible} input
-and output layer with several \textbf{hidden layers} between them. The distinction
-between visible and hidden layers is important because training only evaluates the
-output layer's performance. During training, a \textbf{learning algorithm} optimizes the
-individual hidden layers to best approximate the desired output of the whole network.
+A \ac{dnn} is commonly defined as a \ac{nn}, that has a \textbf{visible} input and
+output layer with several \textbf{hidden layers} between them. The distinction between
+visible and hidden layers is important because training of the network only evaluates
+the output layer's performance. During training, a \textbf{learning algorithm} optimizes
+the individual hidden layers to best approximate the desired output of the whole network.
 
-The input layer takes in the data to be processed, which typically means an array
-of color values in the case of object tracking. These values are then processed
-by the hidden layers and finally the output layer produces the target's position
-in the frame. These models usually come in the form of a \textbf{Feedforward neural network}
-or \textbf{\ac{mlp}}. The name comes from the fact that information flows from the
-input, through computations, to the output with no \textbf{feedback} connections.
-\\\authorcomment{picture from eg.\ deeplearningbook page 174?}
+The input layer takes in the data to be processed, which typically means a vector of
+color values in the case of object tracking. These are then processed by the hidden
+layers and finally the output layer produces the target's position in the frame. These
+models usually come in the form of a \textbf{feedforward neural network} or
+\textbf{\ac{mlp}}. The name comes from the fact that information flows from the input
+through computations to the output with no \textbf{feedback} connections.
 
-Each layer consist of several \textbf{units} with a weight and activation function. The
-weights of a layer are commonly represented by a matrix by which the input-vector is
-multiplied. Units in a layer also have the same activation function. Simply put, a unit's
-activation function is fed by a sum of its weighted inputs and the result is output to 
-the next layer alongside the other units' outputs. A commonly used unit type is the 
-\textbf{\ac{relu}}, which is defined by the activation function $g (z) = \max\{0,z\}$.
-It provides a nonlinear transformation while being comparable to linear models in terms
-of generalizing well and being easy to optimize.
-\authorcomment{explain biases also}
+In \ac{nn}s, each layer consist of several \textbf{units} with a weight and activation
+function. A bias-term can also be defined for each unit. The weights of a layer are
+commonly represented by a matrix by which the input-vector is multiplied. Units in a
+layer also have a common activation function. A unit's activation function is fed by
+the sum of its weighted inputs in addition to the possible bias, and the result is
+output to the next layer alongside the layers other units' outputs. A commonly used
+unit type is the \textbf{\ac{relu}}, which is defined by the activation function
+$g (z) = \max\{0,z\}$. It provides a nonlinear transformation while being comparable
+to linear models in terms of generalizing well and being easy to optimize.
+\authorcomment{picture from eg.\ deeplearningbook page 174?}
 
 Before training, the weights of a \ac{mlp} are initialized to small random values and 
 biases to zero or small positive values. Then an algorithm called \textbf{stochastic
@@ -35,8 +38,6 @@ example by \textbf{back-porpagation}, which feeds the errors back through the ne
 to assign a contribution value to each unit. These values are then used to calculate
 the gradient of the loss function relative to the weights. Each weight is adjusted
 slightly to the opposite sign to minimize the loss function.
-\\\cite{DEEP_LEARNING}
-\authorcomment{how to cite for the whole page?}
 
 \subsection{Convolutional networks}
 
@@ -47,11 +48,12 @@ the amount of computation needed and it makes it possible to work with variable 
 sizes.
 
 A typical \ac{cnn} layer consists of three stages: a convolution stage, detector stage
-and pooling stage. First, a \textbf{kernel} is applied on all positions in the input
-data. This means that a linear activation function is fed by the matrix product of the
-input location and the kernel's weight matrix. In the detector stage, the results are
-then run through a non-linear activation, for example a \ac{relu}. Finally, a \textbf{pooling
-function} is used to combine the results of multiple nearby outputs as the final output.
+and pooling stage. First, a \textbf{kernel} is applied to the input data in positions
+separated by a stepsize. This means that a linear activation function is fed by the
+matrix product of the input location and the kernel's weight matrix. In the detector
+stage, the results are then run through a non-linear activation, for example a \ac{relu}.
+Finally, a \textbf{pooling function} is used to combine the results of multiple nearby
+outputs as the final output.
 
 Convolutional layers enable indirect connections to all or most of the input data deeper
 in the network even when individual layers' connections are very sparse.
