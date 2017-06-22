@@ -1,9 +1,24 @@
 \section{Object tracking}
-Object tracking in video sequences has been researched for decades and the approaches
-have included tracking based on subspaces~\cite{EIGENTRACK} and different kinds of
-filtering~\cite{CONDENSATION}. Recently, the advancement in \ac{nn}'s capabilities in
-object classification has resulted in much research on \ac{nn}s in object tracking
-tasks.~\cite{OT_BENCH}
+Object tracking in video sequences has been researched for decades and \ac{nn}-based
+algorithms have recently been researched \authorcomment{cite works here} as \ac{nn}s'
+capabilities in classification tasks have been noted \authorcomment{cite relevant work(s)}.
+There has also been development in the area of benchmarking the tracking algorithms
+\cite{OT_BENCH}.
+
+\subsection{Overview}
+Tracking methods can be roughly divided to generative and discriminative, but combinations
+of them have also been proposed.
+
+Generative methods search the frame for the best matches
+to a template of an appearance model of the subject. Template methods based on pixel
+intensity and color histograms perform well with no drastic changes in object appearance
+and non-cluttered backgrounds. Appearance models learnt from training can be less affected
+by appearance variations and adaptive schemes provide added flexibility, while sparse
+models handle occlusion and image noise better.~\cite{OBJECT_PLS} \authorcomment{add citations}
+
+Discriminative methods consider tracking as a binary classification problem. They take
+the background also into account to separate the target from it. One approach is to sample
+the target's surroundings in the frame to produce a model of the background.
 
 \subsection{Deep neural networks in tracking}
 Overview of task from \ac{dnn}-point of view, strengths and weaknesses compared to
