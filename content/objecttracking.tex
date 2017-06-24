@@ -1,9 +1,9 @@
 \section{Object tracking}
 Object tracking in video sequences has been researched for decades and \ac{nn}-based
 algorithms have recently been researched \authorcomment{cite works here} as \ac{nn}s'
-capabilities in classification tasks have been noted \authorcomment{cite relevant work(s)}.
+capabilities in classification tasks have been noted \authorcomment{cite relevant works}.
 There has also been development in the area of benchmarking the tracking algorithms
-\cite{OT_BENCH}.
+~\cite{OT_BENCH}.
 
 \subsection{Overview}
 Tracking methods can be roughly divided to generative and discriminative, but combinations
@@ -14,15 +14,24 @@ to a template of an appearance model of the subject. Template methods based on p
 intensity and color histograms perform well with no drastic changes in object appearance
 and non-cluttered backgrounds. Appearance models learnt from training can be less affected
 by appearance variations and adaptive schemes provide added flexibility, while sparse
-models handle occlusion and image noise better.~\cite{OBJECT_PLS} \authorcomment{add citations}
+models handle occlusion and image noise better.~\cite{OBJECT_PLS}
+\authorcomment{add citations}
 
 Discriminative methods consider tracking as a binary classification problem. They take
-the background also into account to separate the target from it. One approach is to sample
-the target's surroundings in the frame to produce a model of the background.
+the background also into account to separate the target from it. Used approaches
+include refining the initial guess with a support vector machine~\cite{SVT} or utilizing
+a relevance vector machine~\cite{SPARSE_BAYESIAN}.
+\authorcomment{go into greater detail about the methods}
 
 \subsection{Deep neural networks in tracking}
-Overview of task from \ac{dnn}-point of view, strengths and weaknesses compared to
-more traditional solutions.
+(Overview of task from \ac{dnn}-point of view, strengths and weaknesses compared to
+more traditional solutions.)
+
+An early implementation of a \ac{cnn}-based tracker~\cite{HUMAN_CNN} pre-dates the work
+of Krizhevsky et.~al.~\cite{NIPS_IMAGENET}. It takes modifies the architecture used for
+detection to make the network less affected by sifts in the objects position in the
+frame. Shift-invariancy is a non-desirable quality in tracking while using previous
+positions as a as it might result to mixups with objects similar to the target.~\cite{HUMAN_CNN}
 
 \subsection{Data sets and evaluation}
 Overview of the data sets used for training and analysis. Methods used for comparing
