@@ -21,12 +21,12 @@ through computations to the output with no \textbf{feedback} connections.
 In \ac{nn}s, each layer consist of several \textbf{units} with a weight and activation
 function. A bias-term can also be defined for each unit. The weights of a layer are
 commonly represented by a matrix by which the input-vector is multiplied. Units in a
-layer also have a common activation function. A unit's activation function is fed by
-the sum of its weighted inputs in addition to the possible bias, and the result is
-output to the next layer alongside the layers other units' outputs. A commonly used
-unit type is the \textbf{\ac{relu}}, which is defined by the activation function
-$g (z) = \max\{0,z\}$. It provides a nonlinear transformation while being comparable
-to linear models in terms of generalizing well and being easy to optimize.
+layer also have a common activation function, which is fed by the sum of its weighted
+inputs in addition to the possible bias, and the result is output to the next layer
+alongside the layers other units' outputs. A commonly used unit type is the \textbf{\ac{relu}},
+which is defined by the activation function $g (z) = \max\{0,z\}$. It provides a
+nonlinear transformation while being comparable to linear models in terms of generalizing
+well and being easy to optimize.
 \authorcomment{picture from eg.\ deeplearningbook page 174?}
 
 Before training, the weights of a \ac{mlp} are initialized to small random values and 
@@ -58,3 +58,6 @@ is used to combine the results of multiple nearby outputs as the final output.
 \authorcomment{pictures from dl p.337?}
 Convolutional layers enable indirect connections to all or most of the input data deeper
 in the network even when individual layers' connections are very sparse.
+
+\subsection{Stacked denoising autoencoders}
+A brief overview of SDAE

@@ -7,14 +7,14 @@ There has also been development in the area of benchmarking the tracking algorit
 
 \subsection{Overview}
 Tracking methods can be roughly divided to generative and discriminative, but combinations
-of them have also been proposed.
+of them have also been proposed.\authorcomment{cite a combination}
 
-Generative methods search the frame for the best matches
-to a template of an appearance model of the subject. Template methods based on pixel
-intensity and color histograms perform well with no drastic changes in object appearance
-and non-cluttered backgrounds. Appearance models learnt from training can be less affected
-by appearance variations and adaptive schemes provide added flexibility, while sparse
-models handle occlusion and image noise better.~\cite{OBJECT_PLS}
+Generative methods search the frame for the best matches to a template of an appearance
+model of the subject. Template methods based on pixel intensity and color histograms
+perform well with no drastic changes in object appearance and non-cluttered backgrounds.
+Appearance models learnt from training can be less affected by appearance variations and
+adaptive schemes provide added flexibility, while sparse models handle occlusion and
+image noise better.~\cite{OBJECT_PLS}
 \authorcomment{add citations}
 
 Discriminative methods consider tracking as a binary classification problem. They take
@@ -34,5 +34,15 @@ frame. Shift-invariancy is a non-desirable quality in tracking while using previ
 positions as a as it might result to mixups with objects similar to the target.~\cite{HUMAN_CNN}
 
 \subsection{Data sets and evaluation}
-Overview of the data sets used for training and analysis. Methods used for comparing
-performance.
+The datasets used for training are equally important as the actual network desing. %TODO: cite
+Research on networks working with image data has been made easier by larger sets of both
+hand-labeled sets and ones obtained by simple keyword searches from online image services.
+These kinds of sets can be used to pre-train useful target features to tracking networks.
+    There has also been an increase in resources devoted to tracking data with the
+TR-100 -set~\cite{VTB} introduced in being a good example. It contains a hundred tracking
+sequences with reference positions for the target on each frame. Because some of the
+targets are similar or less challenging, a subset of 50 sequences considered challenging
+is also provided as TR-50.~\cite{OT_BENCH}
+
+Overview of the data sets used for training and analysis.
+Methods used for comparing performance.
