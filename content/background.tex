@@ -1,7 +1,8 @@
 \section{Deep Learning}
 
-This chapter introduces the basic concepts and is based on the book Deep Learning by
-Goodfellow et.~al.~\cite{DEEP_LEARNING}
+This chapter introduces the basic concepts behind deep neural networks and the 
+first two sub-sections are based on the book Deep Learning by Goodfellow et.~al.
+~\cite{DEEP_LEARNING}
 
 \subsection{Deep neural networks}
 
@@ -60,4 +61,10 @@ Convolutional layers enable indirect connections to all or most of the input dat
 in the network even when individual layers' connections are very sparse.
 
 \subsection{Stacked denoising autoencoders}
-A brief overview of SDAE
+A \ac{sdae} is a modification of the classic autoencoders. Denoising autoencoders
+are trained to encode a corrupted version of the input to a hidden representation
+and decode that to useful features of the clean input. A stacked denoising autoencoder
+is simply a sequence of denoising autoencoders trained this way. Corrupted input
+is only used to train the individual layers to find useful features so a trained
+\ac{sdae} works on clean input.~\cite{SDAE}
+\authorcomment{motivation for using sdaes?}
