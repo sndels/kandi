@@ -1,48 +1,28 @@
 \section{Object tracking}
-Object tracking in video sequences has been researched for decades and \ac{nn}-based
-algorithms have recently been researched \authorcomment{cite works here} as \ac{nn}s'
-capabilities in classification tasks have been noted \authorcomment{cite relevant works}.
-There has also been development in the area of benchmarking the tracking algorithms
-~\cite{OT_BENCH}.
+Object tracking in video sequences has been researched for decades using different
+approaches for defining the target and adapting to changes in its shape or orientation.
+The situations most likely to cause tracking failure have also been identified.
 
-\subsection{Overview}
+\subsection{Target representation}
 Tracking methods can be roughly divided to generative and discriminative, but combinations
 of them have also been proposed.\authorcomment{cite a combination}
 
 Generative methods search the frame for the best matches to a template of an appearance
 model of the subject. Template methods based on pixel intensity and color histograms
 perform well with no drastic changes in object appearance and non-cluttered backgrounds.
-Appearance models learnt from training can be less affected by appearance variations and
-adaptive schemes provide added flexibility, while sparse models handle occlusion and
-image noise better.~\cite{OBJECT_PLS}
+Appearance models learned from training can be less affected by appearance variations
+and adaptive schemes provide added flexibility, while sparse models handle occlusion
+and image noise better.~\cite{OBJECT_PLS}
 \authorcomment{add citations}
 
 Discriminative methods consider tracking as a binary classification problem. They take
 the background also into account to separate the target from it. Used approaches
 include refining the initial guess with a support vector machine~\cite{SVT} or utilizing
 a relevance vector machine~\cite{SPARSE_BAYESIAN}.
-\authorcomment{go into greater detail about the methods}
 
-\subsection{Deep neural networks in tracking}
-(Overview of task from \ac{dnn}-point of view, strengths and weaknesses compared to
-more traditional solutions.)
+\subsection{Model update}
+(Describe roughly the idea of updating the model online, motivations)
 
-An early implementation of a \ac{cnn}-based tracker~\cite{HUMAN_CNN} pre-dates the work
-of Krizhevsky et.~al.~\cite{NIPS_IMAGENET}. It takes modifies the architecture used for
-detection to make the network less affected by sifts in the objects position in the
-frame. Shift-invariancy is a non-desirable quality in tracking while using previous
-positions as a as it might result to mixups with objects similar to the target.~\cite{HUMAN_CNN}
-
-\subsection{Data sets and evaluation}
-The datasets used for training are equally important as the actual network desing. %TODO: cite
-Research on networks working with image data has been made easier by larger sets of both
-hand-labeled sets and ones obtained by simple keyword searches from online image services.
-These kinds of sets can be used to pre-train useful target features to tracking networks.
-    There has also been an increase in resources devoted to tracking data with the
-TR-100 -set~\cite{VTB} introduced in being a good example. It contains a hundred tracking
-sequences with reference positions for the target on each frame. Because some of the
-targets are similar or less challenging, a subset of 50 sequences considered challenging
-is also provided as TR-50.~\cite{OT_BENCH}
-
-Overview of the data sets used for training and analysis.
-Methods used for comparing performance.
+\subsection{Challenges}
+(Present challenging situations for trackers, motivation for development of better
+methods.)

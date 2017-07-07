@@ -1,0 +1,9 @@
+\section{Deep neural networks in tracking}
+(Overview of task from \ac{dnn}-point of view, strengths and weaknesses compared to
+more traditional solutions.)
+
+An early implementation of a \ac{cnn}-based tracker~\cite{HUMAN_CNN} pre-dates the work
+of Krizhevsky et.~al.~\cite{NIPS_IMAGENET}. It takes modifies the architecture used for
+detection to make the network less affected by sifts in the objects position in the
+frame. Shift-invariancy is a non-desirable quality in tracking while using previous
+positions as a as it might result to mixups with objects similar to the target.~\cite{HUMAN_CNN}
