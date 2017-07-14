@@ -7,3 +7,77 @@ of Krizhevsky et.~al.~\cite{NIPS_IMAGENET}. It takes modifies the architecture u
 detection to make the network less affected by sifts in the objects position in the
 frame. Shift-invariancy is a non-desirable quality in tracking while using previous
 positions as a as it might result to mixups with objects similar to the target.~\cite{HUMAN_CNN}
+
+\cite{LEARNED_HIERARCH}
+Learns generic features from video sequences with tracked objects and focuses on
+features robust to complex motion patterns. An adaptation module integrates the
+target's shape and texture to the pre-trained features. This is done using the
+first 20 frames of the online tracking sequence as training data.
+
+\cite{MULTI_DOMAIN}
+Learns branching and domain specific fully connected layers and the online tracking
+substitutes them with a single new layer that is fine-tuned online with the shared
+layers. Both long- and short-term updates are utilized to provide both robust and
+adaptive tracking.
+
+\cite{DEEPTRACK}
+No pre-training as the network learns features online. Model is updated if training
+loss is above a certain threshold.
+
+\cite{DISCR_SALIENCY}
+Combines a pre-trained feature descriptor \ac{cnn} and a SVM that creates a
+saliency map from the extracted features. This map is used as a filter to extract
+the position of the target in each frame.
+
+\cite{BLUR_TRACK}
+Tackles the issue of motion blur as it is common in actual applications of object
+tracking. Deblurring the images online is not computationally viable so the work
+proposes a blur-invariant object tracker. It uses a deep hierarchial appearance
+model pre-trained with unlabeled data that is blurred with varying kernel sizes
+to make the model more robust. 
+
+\cite{SIAM_TRACK}
+Applies a siamese architecture of two convolutional networks to object tracking.
+A candidate image is compared to an exempla image and is scored based on their
+similarities.
+
+\cite{FCN_TRACK}
+Views the traditionally fully connected layers at the end of a \ac{cnn} based
+tracking network as convolutional layers and uses upscaling with skip connections
+to previous layers. This \ac{fcn} is computationally lighter than a sliding window
+based network as it only requires a single feedforward [connection?]. The network
+was pre-trained on the VOC2012 dataset to learn features for targets of 20 categories
+in the dataset. The tracker is only able to detect objects in those categories.
+It also only allows single object tracking but the target can be identified in the
+first probability map if the sequence contains multiple targets to permit multi-object
+scenarios and increase accuracy in single-object tracking. (However, the method is
+currently not efficient enough for tracking in real time.)
+
+\cite{SPAT_RCN}
+Combines an efficient feature extractor (YOLO) to spatial and temporal constraints.
+The network's layers are first pre-trained with a traditional \ac{cnn} for general
+feature learning. YOLO is then adopted as the detection module and the \ac{lstm}
+is added before training it as part of the whole network. The \ac{lstm} is provide
+robust access to long-range context and is fed with the output of the detection
+stage converted to a 32x32 heatmap linked with the learned visual features.
+
+\cite{FCN_TRACK_2}
+Uses the conv4-3 and conv5-3 layers of the VGG network for selecting feature maps
+that are fed to two different networks: a general network to capture category information
+and a specific network to discriminate the target from the background. Both networks
+output heatmaps which are used for final detection. The general network's result is used
+by default while the specific network is used to determine the target location if
+a distracter is detected in the background. Both networks are initialized on the first
+frame, but only the specific network is updated online to avoid noise.
+
+\cite{HIERARCH_FEATS}
+Instead of using just the final output of a sequence of convolutional layers, the
+proposed algorithm uses multiple layers to find the target's position. This is done
+by going through the outputs coarse-to-fine to regularize the search for the maximum
+value in the finer response maps. All the layers' correlation filter numerator and
+denominator are also updated each frame to get a robust and computationally lighter
+approximation of minimizing output error.
+
+\cite{SMS_DLT}
+Uses a \ac{sdae} fine-tuned with SURF features gotten from matching the current frame's
+to the first one's.
