@@ -23,8 +23,12 @@ include refining the initial guess with a support vector machine~\cite{SVT} or u
 a relevance vector machine~\cite{SPARSE_BAYESIAN}.
 
 \subsection{Model update}
-(Describe roughly the idea of updating the model online, motivations)
+During tracking, the appearance of the target may change for example due to changes in
+orientation. Some trackers adapt the tracking model online to be robust against such
+changes, but care must be taken in designing the update algorithm as it could result
+to drift.
+\authorcomment{Give some examples, cite}
 
 \subsection{Challenges}
-(Present challenging situations for trackers, motivation for development of better
-methods.)
+\authorcomment{Present challenging situations for trackers, motivation for development
+of better methods.}
