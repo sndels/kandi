@@ -1,14 +1,34 @@
 \section{Data sets and evaluation}
 \authorcomment{Overview of the data sets used for training and analysis. Methods
 used for comparing performance.}
+\authorcomment{Move these to section 3?}
 
-The datasets used for training are equally important as the actual network desing. %TODO: cite
+\subsection{Data sets}
+The datasets used for training are equally important as the actual network design
+\authorcomment{citation}.
 Research on networks working with image data has been made easier by larger sets of both
 hand-labeled sets and ones obtained by simple keyword searches from online image services.
 These kinds of sets can be used to pre-train useful target features to tracking networks.
 
-There has also been an increase in resources devoted to tracking data with the
-TR-100 -set~\cite{VTB} introduced in being a good example. It contains a hundred tracking
-sequences with reference positions for the target on each frame. Because some of the
-targets are similar or less challenging, a subset of 50 sequences considered challenging
-is also provided as TR-50.~\cite{OT_BENCH}
+VOC was a yearly competition for object recognition and VOC 2012 \cite{VOC12} is the last challenge
+in the series. The datasets of the challenges are still used for pre-training features
+for detection stages in tracking networks. There are four major subsets of hand-labeled
+VOC data: classification, segmentation action classification, person layout.
+Classification datasets consist of images annotated with the objects contained and
+bounding boxes for the objects drawn in the image itself while image segmentation sets
+provide additional mask images of the objects and classes in each shot. Action classification
+sets contain descriptions and bounding boxes of actions the subjects are performing and
+person layout sets contain bounding boxes for the subjects head, hands and feet.
+\authorcomment{image examples of the datasets, descriptions to annotations}
+
+The \ac{ilsvrc} \cite{ILSVRC15} is another recognition challenge running since 2010. The
+most recent dataset consists of subsets of object localization, object detection and
+object detection from video. The last subset is especially beneficial object tracking
+tasks as it provides data for training on actual tracking data. The other two sets are also
+substantially larger than the respective VOC sets as their labeling has been crowd sourced. 
+
+There has also been an increase in resources solely devoted to tracking data with the
+TR-100 -set~\cite{VTB} being a good example. It contains a hundred tracking sequences
+with reference positions for the target on each frame. Because some of the targets are
+similar or less challenging, a subset of 50 sequences considered challenging is also
+provided as TR-50.~\cite{OT_BENCH}
