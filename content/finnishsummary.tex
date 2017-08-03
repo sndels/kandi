@@ -8,6 +8,26 @@
 
 \subsection{Kohteenseuranta syvillä neuroverkoilla}
 
-Pitkä tiivistelmä suomeksi (3 sivua)
+Kohteenseuranta on aktiivisesti tutkittu konenäön osa-alue, jossa tavoitteena on seurata
+osoitettua kohdetta videossa. Luonteeltaan sillä on yhtäläisyyksiä kuva-analyysisovelluksiin
+ja täten myös käytetyt menetelmät ovat osittain samoja. Viime vuosina kohteenseurantaan onkin
+sovellettu myös syviä neuroverkkoja niiden menestyttyä kuvaluokittelussa. Tämän työ perehtyy
+syväoppimiseen, kohteenseurantaan sekä siihen käytettyihin syviin neuroverkkoihin. Lisäksi
+työssä käsitellään tehtävään tarkoittettujen verkkojen vertailuperiaatteita ja käytettyjä
+aineistoja.
+
+Keinotekoinen neuroverkko on löyhästi aivojen toimintaperiaatteiden mukaan rakennettu 
+koneoppimismalli, joka mallinnetaan yleisimmin syötteinä, tulosteina ja niitä yhdistävänä
+sarjana kerroksia. Kerrokset koostuvat neuroneista, joilla on sarja painotettuja syötteitä,
+niiden summalla syötettävä aktivointifunktio ja mahdollinen painoarvo. Yksinkertaisimmillaan
+koneoppiminen toteutetaan syöttämällä verkolle tunnettua dataa ja optimoimalla sen painoja
+vertaamalla tulostetta haluttuun arvoon. 
+
+Syvä neuroverkko tarkoittaa tyypillisesti neuroverkkoa, jossa välikerroksina on monta
+piilotettua kerrosta. Koko verkkoa siis opetetaan tuottamaan syötteistä haluttu tuloste
+välittämättä yksittäisen välikerroksen tulosteista. Yleisin kohteenseurannassa käytetty
+verkkotyyppi on eteenpäinsyöttävä eli ns. MultiLayer Perceptron (MLP). Eteenpäinsyöttävässä
+verkossa tieto kulkee aina kerroksesta seuraavaan, eikä niiden välillä ole esimerkiksi
+takaisinkytkentöjä.
 
 \renewcommand{\thesubsection}{\oldsubsection}
