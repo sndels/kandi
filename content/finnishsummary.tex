@@ -8,26 +8,89 @@
 
 \subsection{Kohteenseuranta syvillä neuroverkoilla}
 
+351885 Santeri Salmijärvi (santeri.salmijarvi@aalto.fi)\\
+Tekstipaja 2: Henna Juslin 15.8. 12-13:30\\
+(Varsinainen käsittelyosa on vielä kesken, joten näyte esittelee taustateoriaa)\\
 Kohteenseuranta on aktiivisesti tutkittu konenäön osa-alue, jossa tavoitteena on seurata
-osoitettua kohdetta videossa. Luonteeltaan sillä on yhtäläisyyksiä kuva-analyysisovelluksiin
-ja täten myös käytetyt menetelmät ovat osittain samoja. Viime vuosina kohteenseurantaan onkin
-sovellettu myös syviä neuroverkkoja niiden menestyttyä kuvaluokittelussa. Tämän työ perehtyy
-syväoppimiseen, kohteenseurantaan sekä siihen käytettyihin syviin neuroverkkoihin. Lisäksi
-työssä käsitellään tehtävään tarkoittettujen verkkojen vertailuperiaatteita ja käytettyjä
-aineistoja.
+osoitettua kohdetta videossa. Sillä on sovelluksia muun muassa videovalvonnassa, koneen ja
+ihmisen välisessä viestinnässä sekä lisätyssä todellisuudessa. Luonteeltaan kohteenseurannalla
+on yhtäläisyyksiä kuva-analyysisovelluksiin ja täten myös käytetyt menetelmät ovat osittain
+samoja. Viime vuosina kohteenseurantaan onkin sovellettu myös syviä neuroverkkoja niiden
+menestyttyä kuvaluokittelussa. Tämän työ perehtyy syväoppimiseen, kohteenseurantaan sekä
+siihen käytettyihin syviin neuroverkkoihin. Lisäksi työssä käsitellään tehtävään tarkoittettujen
+verkkojen vertailuperiaatteita ja käytettyjä aineistoja.
 
-Keinotekoinen neuroverkko on löyhästi aivojen toimintaperiaatteiden mukaan rakennettu 
+Keinotekoinen neuroverkko on löyhästi aivojen toimintaperiaatteiden mukaan rakennettu
 koneoppimismalli, joka mallinnetaan yleisimmin syötteinä, tulosteina ja niitä yhdistävänä
 sarjana kerroksia. Kerrokset koostuvat neuroneista, joilla on sarja painotettuja syötteitä,
-niiden summalla syötettävä aktivointifunktio ja mahdollinen painoarvo. Yksinkertaisimmillaan
-koneoppiminen toteutetaan syöttämällä verkolle tunnettua dataa ja optimoimalla sen painoja
-vertaamalla tulostetta haluttuun arvoon. 
+niiden summalla syötettävä aktivointifunktio ja mahdollinen poikkeutusarvo. Kohteenseurannassa
+tyypillinen neuronityyppi on Rectified Linear Unit, joka toteuttaa aktivointifunktiota
+$g (z) = \max\{0,z\}$. Se tuottaa hyöydyllisen epälineaarisen muunnoksen syötteistä, mutta
+sen yleistyminen ja optimoinnin keveys ovat silti vertailukelpoisia lineaaristen mallien kanssa.
+Syötteet ja tulosteet voidaan mallintaa vektoreina ja painot sekä poikkeutukset matriiseina.
 
 Syvä neuroverkko tarkoittaa tyypillisesti neuroverkkoa, jossa välikerroksina on monta
 piilotettua kerrosta. Koko verkkoa siis opetetaan tuottamaan syötteistä haluttu tuloste
 välittämättä yksittäisen välikerroksen tulosteista. Yleisin kohteenseurannassa käytetty
-verkkotyyppi on eteenpäinsyöttävä eli ns. MultiLayer Perceptron (MLP). Eteenpäinsyöttävässä
+verkkotyyppi on eteenpäin syöttävä eli ns. MultiLayer Perceptron (MLP). Eteenpäin syöttävässä
 verkossa tieto kulkee aina kerroksesta seuraavaan, eikä niiden välillä ole esimerkiksi
 takaisinkytkentöjä.
 
-\renewcommand{\thesubsection}{\oldsubsection}
+Verkon painot alustetaan tyypillisesti pienillä satunnaisluvuilla ja poikkeutusarvot nollaan
+tai pieniin satunnaislukuihin. Yksinkertaisimmillaan koneoppiminen toteutetaan syöttämällä
+verkolle tunnettua dataa ja optimoimalla sen painoja vertaamalla tulostetta haluttuun arvoon.
+Tulosteen eroa haluttuun arvoon mallinnetaan tappiofunktiolla, jonka gradientti lasketaan
+koko verkolle esimerkiksi taaksepäin syöttämällä. Menetelmässä virhearvo syötetään takaisin
+pitkin kerroksia ja jokaiselle neuronille asetetaan kontribuutioarvo. Tätä arvoa käytetään
+gradientin määrittämiseksi painoille ja kutakin painoa siirretään hieman vastakkaiseen suuntaan
+tappiofunktion minimoimiseksi. Prosessia toistetaan uusilla koulutusaineistoilla, kunnes
+koulutuksen katsotaan olevan valmis.
+
+Konvoluutiota suoran matriisikertolaskun sijaan vähintään yhdessä kerroksessaan käyttävää
+neuroverkkoa kutsutaan konvoluutioneuroverkoksi. Konvoluutio on kahdelle funktiolle suoritettava
+operaatio, joka kuvataan yleisesti niiden pistetulojen integraalina toisen funktion
+siirtämisen funktiona. Kuva-analyysissä konvoluutio tapahtuu käsittelemällä syötekuvaa
+siirrettävällä kernelillä eli matriisilla painoarvoja. Kukin neuroni käsittelee vain
+kernelinsä rajoittamaa osaa syötteestä, mutta konvoluutiokerrosten ketjuttamisen myötä
+syvemmät kerrokset ovat epäsuorassa yhteydessä koko verkon syötteeseen tai suurimpaan
+osaan siitä.
+
+Konvoluutioverkon kerros muodostuu kolmesta vaiheesta: konvoluutio, tunnistus ja kerääminen.
+Ne voidaan mallintaa verkkoon erillisinä kerroksina mahdollistaen modulaarisen rakenteen.
+Konvoluutiovaiheessa syöte käsitellään kerneliä liikuttaen. Tunnistusvaiheessa suoritetaan
+useita konvoluutioita rinnakkain ja kukin niistä syötetään lineaariseen aktivointifunktioon.
+Nämä tulosteet syötetään tunnistusvaiheessa epälineaariseen aktivointifunktioon ja
+keräämisvaiheessa lähekkäiset tunnistuksen tulosteet yhdistetään keräysfunktiolla.
+
+Kohteenseurantaa videossa on tutkittu vuosikymmeniä. Tyypillisesti seuranta tapahtuu videosta,
+jonka ensimmäisessä kuvassa on osoitettu haluttu seurannan kohde, mutta joissain tapauksissa
+sovelluksen on löydettävä se kuvauksen perusteella. Tehtävä ei ole laajasta tutkimuksesta
+huolimatta ratkaistu ja seurannan epäonnistumista aiheuttavat edelleen hankalat olosuhteet
+kuten liike-epäterävyys tai kohteen hetkellinen poistuminen kuvasta.
+
+Merkittävät varhaiset sovellukset hyödynsivät kohteesta otettuja kuvasarjoja kohteen etsimiseksi
+tai esittivät kohteen sen rajat määrittävänä käyränä. Modernit seurantamenetelmät voidaan jakaa
+karkeasti generatiivisiin ja erotteleviin, mutta niiden yhdistelmiä on myös tutkittu. Generatiiviset
+sovellukset etsivät kuvasta parhaiten kohteesta muodostettua mallia vastaavia alueita ja erottelevat
+toteuttavat seurannan erottamalla kohteen taustasta esimerkiksi soveltamalla luokitteluverkkoa
+pienempiin osiin kuvasta.
+
+Koulutukseen käytetyt aineistot ovat yhtä tärkeitä kuin itse verkon rakenne. Seurantaverkkoa
+kehitettäessä on tavallista esikouluttaa ominaisuuksia erottelevat kerrokset yksi kerrallaan
+esimerkiksi luokitteluun tarkoitettujen käsin merkittyjen tai hakusanalla kuvapalveluista
+ladattujen kuva-aineistojen avulla parempien tulosten takaamiseksi. Yksi merkittävimmistä
+käytetyistä aineistoista on vuosittaisiin ImageNet Large Scale Visual Recognition Challenge
+-haasteisiin päivitettävä kuvakanta.
+
+Yksittäisten kuvien lisäksi koulutukseen käytetään kohteenseurantaan keskittyneitä
+videoaineistoja, joilla voidaan arvioida verkon ehdottamaa kohteen sijaintia todelliseen.
+Merkittäviä seurantavideoita sisältäviä aineistoja ovat TB-100 ja sen alajoukko TB-50 sekä
+vuoteen 2012 järjestetyn Visual Object Tracking challenge (VOT) -kilpailun aineistot.
+
+Kehitettyjä seurantasovelluksia arvioidaan vertaamalla niiden tuloksia aiemmin julkaistuihin
+samaa aineistoa käyttämällä. Yksi käytetyistä aineistoista on Visual Tracker Benchmarkin kokoama
+TB-50, johon on julkaistu sen tekohetkellä merkittävien vapaasti saatavilla olleiden sovellusten
+tulokset vertailua varten. Myös VOT:n kaltaisten kilpailujen tuloksia ja aineistoja voidaan
+käyttää myöhempien menetelmien arviointiin.
+
+\renewcommand{\thesubsection}{\oldsubection}
