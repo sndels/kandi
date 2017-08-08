@@ -19,17 +19,22 @@ color values in the case of object tracking. These are then processed by the hid
 layers and finally the output layer produces the target's position in the frame. These
 models usually come in the form of a \textbf{feedforward neural network} or
 \textbf{\ac{mlp}}. The name comes from the fact that information flows from the input
-through computations to the output with no \textbf{feedback} connections.
+through computations to the output with no \textbf{feedback} connections. Typically
+this means that connections are only between consecutive layers.
 
 In \ac{nn}s, each layer consist of several \textbf{units} with an activation function
-and a weight for each of its input connections. A bias-term can also be defined for
-each unit. The weights of a layer are commonly represented by a matrix by which the
-input-vector is multiplied. Units in a layer also have a common activation function,
-which is fed by the sum of its weighted inputs in addition to the possible bias, and
-the result is output to the next layer alongside the layers other units' outputs.
-The \textbf{\ac{relu}} is a commonly used unit type, which is defined by the activation
-function $g (z) = \max\{0,z\}$. It provides a nonlinear transformation while being
-comparable to linear models in terms of generalizing well and being easy to optimize.
+and a weight for each of their input connections. The weights of the layer's inputs
+are commonly represented by a matrix by which the input vector is multiplied as each
+row represents a unit's input weights. All of the units can be connected to all of the
+inputs (fig.\ref{fig:fcon}) forming a fully connected layer or just some of them
+(fig.\ref{fig:scon}) utilizing sparse connections. Sparse layers can be implemented
+by defining unique input vectors for the units. Units in a layer have a common activation
+function that is fed by the sum of its weighted inputs. The \textbf{\ac{relu}} is a
+commonly used unit type and is defined by the activation function $g (z) = \max\{0,z\}$.
+It provides a nonlinear transformation while being comparable to linear models in terms
+of generalizing well and being easy to optimize. A bias-term can also be defined for
+each unit and a vector containing the layer's biases is summed to the outputs of the
+activation function before passing the results to the next layer.
 
 \begin{figure}[H]
 \centering
@@ -38,7 +43,7 @@ comparable to linear models in terms of generalizing well and being easy to opti
          four units \textit{h} and three outputs \textit{o}. Each set of connections
          is represented by a weight matrix \textbf{W} which indicates mapping from one
          layer to another. Excluding the input, all layers also have an activation
-         function and their units can be assigned individual weights.}
+         function and their units can be assigned individual weights.}\label{fig:fcon}
 \end{figure}
 
 Before training, the weights of a \ac{mlp} are initialized to small random values and 
@@ -74,13 +79,28 @@ is used to combine the results of multiple nearby outputs as the final output.
 \caption{Deeper layers in a convolutional network are connected to a larger window of the
          input data than shallow layers. This means that deeper layers can be indirectly
          connected to most or all of the input data even though their direct connections
-         are sparse.~\cite{DEEP_LEARNING}}
+         are sparse.~\cite{DEEP_LEARNING}}\label{fig:scon}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{cnn2}
+\caption*{Source: Krizhevsky et.~al.~page 5.~\cite{NIPS_IMAGENET}}
+\caption{The network used in~\cite{NIPS_IMAGENET} is a good example of a typical \ac{cnn}
+         architecture. The first layer evaluates 11$\times$11$\times$3 kernels of pixels
+         from the input and feeds into layers of increasing depth with the final
+         convolutional layer working on 3$\times$3$\times$192 kernels. The final layers
+         are fully connected with 4096 neurons and produce the networks output as a vector
+         of probabilities over the 1000 trained subject classes.}\label{fig:cnn}
 \end{figure}
 
 \subsection{Stacked denoising autoencoders}
-Denoising autoencoders are trained to encode a corrupted version of the input to a
-hidden representation and decode that to useful features of the clean input. A stacked
-denoising autoencoder is simply a sequence of denoising autoencoders trained this way.
-Corrupted input is only used to train the individual layers to find useful features
+Autoencoders consist of an encoder, a decoder and a loss function. They first encode the
+given data to a hidden representation and then reconstruct it while the loss function is
+used in training. Reconstructing the exact input data is not useful and denoising
+autoencoders avoid that by learning to encode a corrupted version of the input and
+decode the result into useful features of the clean input. A stacked denoising autoencoder
+utilizes a sequence of encoders followed by matching decoders trained this way.
+Corrupted input data is only used to train the individual layers to find useful features
 as a trained \ac{sdae} works on clean input.~\cite{SDAE}
 \authorcomment{motivation for using sdaes?}
