@@ -1,22 +1,41 @@
 \section{Deep neural networks in tracking}
-
-This chapter presents some effective trackers using \ac{dnn}s.
+Trackers based on deep learning have been researched because of \ac{dnn}s' ability
+to capture hierarchies of features from raw data with minimal earlier domain specific
+knowledge. They provide greater versatility compared to traditional trackers that are 
+based on hand-crafted sets of features. This chapter discusses effective trackers
+that consist of \ac{dnn}s.
 
 \subsection{Trackers using convolutional neural networks}
 
-\ac{cnn}s are predominant as feature extractors and an early implementation of a
-\ac{cnn}-based tracker~\cite{HUMAN_CNN} pre-dates the work of Krizhevsky et.~al.
-~\cite{NIPS_IMAGENET}. It takes modifies the architecture used for detection to
-make the network less affected by sifts in the objects position in the frame.
-Shift-invariancy is a non-desirable quality in tracking while using previous
-positions as a as it might result to mixups with objects similar to the target
-~\cite{HUMAN_CNN}
+Multilayered \ac{cnn}s are currently common as feature extractors, but an early
+implementation of a \ac{cnn}-based tracker~\cite{HUMAN_CNN} pre-dates the work of
+Krizhevsky et.~al.~\cite{NIPS_IMAGENET} that sparked the current research on \ac{dnn}s
+for classification tasks. Fan et.~al.~\cite{HUMAN_CNN} proposed a shift-variant architecture
+utilizing the previous tracking result each frame. They recognized crowded scenes
+containing multiple objects similar to the target to be especially challenging as false
+positives could result in drift from the intended target. A reference position from the
+previous frame was used to provide additional information for locating the target in the
+current one. They also considered the shift-invariancy of conventional \ac{cnn}s to
+present its own challenges. Shift-invariancy means that the position of an object does
+not affect the network's output, which is beneficial for classification tasks as it is
+desirable to recognize the objects in an image regardless of their position. However, a
+tracker is expected to identify the location of the target, which motivated the adoption
+of a shift-variant architecture.~\cite{HUMAN_CNN}
 
-\cite{LEARNED_HIERARCH}
-Learns generic features from video sequences with tracked objects and focuses on
-features robust to complex motion patterns. An adaptation module integrates the
-target's shape and texture to the pre-trained features. This is done using the
-first 20 frames of the online tracking sequence as training data.
+The tracker Fan et.~al.~\cite{HUMAN_CNN} presented had separate input layers for
+extracting feature maps from the current and previous frame. These were then downsampled
+together before splitting the rest of the convolutions into two branches to obtain both
+global and local structures of features. Global structures were extracted via a series
+of convolutions, while local structures were discovered by sampling the branching output
+with a single layer of small kernels. The network's final layer took the outputs of both
+branches and produced the final probability map based on them. Training was performed
+on a set of 20,000 images obtained from surveilance videos and it was supervised as
+the probabality map resulting from a pair of frames was compared to a target map. Online
+traking was done on a fixed model to avoid the drift adaptive models can induce. The proposed
+tracker perfomed especially when the target's position or the view changed as the tracker
+was trained to track humans specifically.~\cite{HUMAN_CNN} Only being able to track a
+single class of targets is a major limitation, but more recent trackers have used similar
+approaches in conjuction with training on multiple different object classes.
 
 \cite{MULTI_DOMAIN}
 Learns branching and domain specific fully connected layers and the online tracking
@@ -76,6 +95,37 @@ scenarios and increase accuracy in single-object tracking. (However, the method 
 currently not efficient enough for tracking in real time.)
 
 \subsection{Other approaches}
+Not all trackers based on a \ac{dnn} use \ac{cnn}s for feature extraction. Wang and
+Yeung~\cite{LEARNING_DEEP} proposed DLT, a tracker consisting of a pre-trained \ac{sdae}
+and an additional classification layer. The \ac{sdae} was trained on the Tiny Images
+dataset and its encoder part was used with a sigmoid classification layer for online
+tracking.
+
+\authorcomment{THIS IS USES CONVOLUTIONAL LAYERS FOR FEATURES, might be too shallow}
+The ideas behind DLT were developed further by Wang et.~al.~\cite{LEARNED_HIERARCH}.
+They observed that DLT couldn't obtain deep features with temporal invariance due to
+training on unrelated images. Another remark was that DLT doesn't have an
+integrated objective function to adapt the encoder to a target as the weights
+are only updated if the target appearance seems to have changed during tracking.
+The new feature learning method was integrated into an existing tracking system called
+ASLSA~\cite{ASLSA}, which originally used raw pixel valus as its representations.
+
+The two layer feature model learned features capable of handling complicated motion
+transformations based on the work of Zou et.~al.~\cite{INVARIANT_FEATS}. It was trained
+on auxiliary video sequences and the goal was to learn features invariant between two
+frames, which results high-level features robust to non-linear motion patterns. These
+generic features didn't include appearance information of specific target objects so a
+domain adaptation module was added to both layers in order to to readjust them according
+to a specific target.~\cite{LEARNED_HIERARCH}
+
+Evaluation against DLT and several other existing trackers showed that the performance
+of the tracker Wang et.~al.~\cite{LEARNED_HIERARCH} proposed was able to track targets
+that underwent non-rigid object deformation and in- or out-of-plane rotations. It was
+also observed to perform better than the baseline trackers and beat DLT in 5 of the 8
+sequences tested. However, the tracker was implemented as a single-threaded CPU program
+it only reached 0.6 fps in comparison to the 15 fps of the GPU implementation of
+DLT~\cite{LEARNING_DEEP}.
+
 \cite{SMS_DLT}
 Uses a \ac{sdae} fine-tuned with SURF features gotten from matching the current frame's
 to the first one's.
