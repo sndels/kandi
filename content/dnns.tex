@@ -118,13 +118,12 @@ generic features didn't include appearance information of specific target object
 domain adaptation module was added to both layers in order to to readjust them according
 to a specific target.~\cite{LEARNED_HIERARCH}
 
-Evaluation against DLT and several other existing trackers showed that the performance
-of the tracker Wang et.~al.~\cite{LEARNED_HIERARCH} proposed was able to track targets
-that underwent non-rigid object deformation and in- or out-of-plane rotations. It was
-also observed to perform better than the baseline trackers and beat DLT in 5 of the 8
-sequences tested. However, the tracker was implemented as a single-threaded CPU program
-it only reached 0.6 fps in comparison to the 15 fps of the GPU implementation of
-DLT~\cite{LEARNING_DEEP}.
+Evaluation on some challenging sequences showed that the tracker Wang et.~al.~\cite{LEARNED_HIERARCH}
+proposed was able to track targets that underwent non-rigid object deformation and in- or
+out-of-plane rotations. It was also observed to perform better than the baseline
+trackers and beat DLT in 5 of the 8 sequences tested. However, the tracker was implemented
+as a single-threaded CPU program it only reached 0.6 fps in comparison to the 15 fps of
+the GPU implementation of DLT~\cite{LEARNING_DEEP}.
 
 \cite{SMS_DLT}
 Uses a \ac{sdae} fine-tuned with SURF features gotten from matching the current frame's
