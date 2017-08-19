@@ -1,17 +1,28 @@
 \section{Introduction}
 Object tracking is a large and actively researched sub-area of computer vision. The
-main task for a tracker is to find and follow the desired subject in a sequence of
-images. Object tracking is closely related to other image analysis tasks so the
-implementations also share elements. In the recent years, use of deep neural networks
-has been researched for object tracking.
+main task for a tracker is to indicate the desired subject in a sequence of images.
+It can be applied in areas such as human-computer interaction and augmented reality
+and is related to other image analysis tasks. In the recent years, use of deep neural
+networks has been researched for object tracking following their adoption in image
+classification.
 
-Many of the deep networks tailored to tracking tasks are variations of convolutional
-networks. Another way used to extract features from a frame is a stacked denoising
-autoencoder~\cite{LEARNING_DEEP}. The training of deep neural networks requires a
-large amount of training data and their development has been made easier by an increase
-in the size of applicaple datasets.\authorcomment{add cites to examples}
+Tracking implementations with deep neural networks are investigated because traditional
+hand-crafted feature models can suffer from drift or tracking failure in challenging
+circumstances like cluttered backgrounds or large changes illumination. Another issue
+that hand-crafted features don't generalize well to new target classes, which is one
+of the observed strengths of the hiearchial features a deep learning model acquires
+from training. Deep networks are also becoming more viable in real-time tracking as
+the computational power that is available increases and more efficient specializations
+of deep feature models are developed for the task. The training of deep neural networks
+requires a large amount of training data and their development has been made easier by
+an increase in the size of applicable datasets.
 
-The goal of this thesis is to study the concepts behind object tracking and deep neural
-networks. It will present the architectures and principles currently used in deep
-neural networks tailored to object tracking tasks. The practices and datasets used
-in training and evaluating such networks are also introduced.
+This thesis explores object trackers that have used deep neural networks in their
+architecture. The object is to first look into deep neural networks and object tracking
+in enough detail to understand the reasoning and designs used for the trackers utilizing
+deep learning. Datasets for training and evaluating trackers are also briefly discussed
+as they are important to the research. The main goals are to find out what kinds of
+tracker architectures have used deep neural networks, how deep features benefit the
+trackers in question and what kinds of drawbacks emerge from their use.
+
+\authorcomment{deep neural network <-> deep learning, onko liian iso yleistys?}

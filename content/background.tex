@@ -92,32 +92,33 @@ inherent to convolution so other mechanisms are required for handling them.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{cnn}
-\caption*{Source: Recreated fig. 9.4 from Deep Learing~\cite{DEEP_LEARNING}}
 \caption{Stacking convolutions can can provide deeper layers indirect connections to
          most or all of the input data even though their direct connections are sparse.
          This forms hierarchies of features that are useful for capturing larger concepts
-         and the effect increases if a strided convolution or pooling is used.~\cite{DEEP_LEARNING}}\label{fig:scon}
+         and the effect increases if a strided convolution or pooling is used.~\cite{DEEP_LEARNING}
+         Source: Recreated fig. 9.4 from Deep Learing~\cite{DEEP_LEARNING}}\label{fig:scon}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{cnn2}
-\caption*{Source: Krizhevsky et.~al.~page 5.~\cite{NIPS_IMAGENET}}
 \caption{A branch in the network of Krizhevsky et.~al.~\cite{NIPS_IMAGENET} is a good example
-         of a basic \ac{cnn} architecture. The first layer uses a 11$\times$11$\times$55 kernel
-         and feeds into layers of increasing depth with the final convolutional layer working
-         with a 3$\times$3$\times$192 kernel. The final layers are fully connected with 4096
-         neurons and produce the networks output as a vector of probabilities over the 1000
-         trained subject classes.}\label{fig:cnn}
+         of a basic \ac{cnn} architecture. The first layer uses a 11$\times$11$\times$55
+         kernel and feeds into layers of increasing depth with the final convolutional layer
+         working with a 3$\times$3$\times$192 kernel. The final layers are fully connected
+         and produce the networks output as a vector of probabilities over the 1000 trained
+         subject classes. Source: Krizhevsky et.~al.~page 5~\cite{NIPS_IMAGENET}}\label{fig:cnn}
 \end{figure}
 
 \subsection{Stacked denoising autoencoders}
 Autoencoders consist of an encoder, a decoder and a loss function. They first encode the
-given data to a hidden representation and then reconstruct it while the loss function is
-used in training. Reconstructing the exact input data is not useful and denoising
-autoencoders avoid that by learning to encode a corrupted version of the input and
-decode the result into useful features of the clean input. A stacked denoising autoencoder
-utilizes a sequence of encoders followed by matching decoders trained this way.
-Corrupted input data is only used to train the individual layers to find useful features
-as a trained \ac{sdae} works on clean input.~\cite{SDAE}
-\authorcomment{motivation for using sdaes?}
+given data to a hidden representation and then reconstruct it. The loss function is
+used in training to guide the result towards the desired output. Reconstructing the
+exact input data is not useful and denoising autoencoders avoid that by learning to
+encode a corrupted version of the input and decode the result into useful features of
+the clean input. A stacked denoising autoencoder utilizes a sequence of encoders each
+encoding the input further with the final encoder feeding a series of matching decoders.
+Corrupted input data is only used in training the autoencoder to find useful features as
+a trained \ac{sdae} works on clean input.~\cite{SDAE} The encoder halves of \ac{sdae}s
+were used for extracting features from tracking sequences especially before research was
+done on shift-variant \ac{cnn}s.

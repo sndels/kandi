@@ -1,15 +1,29 @@
 \section{Object tracking}
-Object tracking in video sequences has been researched for decades using different
-approaches for defining the target and adapting to changes in its shape or orientation.
-The situations most likely to cause tracking failure have also been identified.
+Object tracking in video sequences has been researched for decades. The task of a
+tracker is to follow a target through a video sequence with the target's location
+initial location commonly indicated in the first frame. It is important to make the
+distinction between object tracking and object detection like the face detection that's
+available for many smartphones and cameras. Detection searches for objects matching
+a set class of objects from the image, but a tracker has to keep track of an individual
+object based on its texture and other unique characteristics. In this chapter, the
+common target representations used in tracking are discussed along with some datasets
+typically used for training or evaluation. Methodology for evaluating trackers is also
+introduced.
 
-\authorcomment{Define the problem in more depth}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{tracking}
+\caption{Frames from a tracking sequence featuring the bounding boxes indicating results
+         of several tracking algorithms. Some examples of drift from the target and
+         complete tracking failure can also be observed from some of the boxes.
+         Source: Wang et.~al.~fig. 6~\cite{OBJECT_PLS}}\label{fig:tracking}
+\end{figure}
 
 \subsection{Target representation}
 Early influential works in the field have used target models including subspaces
 ~\cite{EIGENTRACK} and representing the target as a curve~\cite{CONDENSATION}. Modern
 tracking methods can be roughly divided to generative and discriminative, but combinations
-of them have also been proposed. \authorcomment{cite a combination}
+of them have also been proposed.~\cite{DLT}
 
 Generative methods search the frame for the best matches to a template of an appearance
 model of the subject. Template methods based on pixel intensity and color histograms
@@ -17,7 +31,6 @@ perform well with no drastic changes in object appearance and non-cluttered back
 Appearance models learned from training can be less affected by appearance variations
 and adaptive schemes provide added flexibility, while sparse models handle occlusion
 and image noise better.~\cite{OBJECT_PLS}
-\authorcomment{add citations}
 
 Discriminative methods consider tracking as a binary classification problem. They take
 the background also into account to separate the target from it. Used approaches
@@ -27,15 +40,16 @@ a relevance vector machine~\cite{SPARSE_BAYESIAN}.
 During tracking, the appearance of the target may change for example due to changes in
 orientation. Some trackers adapt the tracking model online to be robust against such
 changes, but care must be taken in designing the update algorithm as it could result
-to drift.
-\authorcomment{Give some examples, cite}
+to drift. Models using online updates have implemented it for example with results of
+previous succesful tracking results~\cite{BLUR_TRACK}.
 
 \subsection{Datasets}
-The datasets used for training are equally important as the actual network design
-\authorcomment{citation}.
 Research on networks working with image data has been made easier by larger sets of both
-hand-labeled sets and ones obtained by simple keyword searches from online image services.
-These kinds of sets can be used to pre-train useful target features to tracking networks.
+hand-labeled data and ones obtained by simple keyword searches from online image services.
+With the adoption of unsupervised training and architectures not working as classifiers
+unlabeled data can also be used to increase the size of the available training set.
+The labeled resources introduced here consist of sets labeled with object classes contained
+in the images and ones for tracking with the target marked in each frame.
 
 VOC was a yearly competition for object recognition and VOC 2012 \cite{VOC12} is the last
 challenge in the series. The datasets of the challenges are still used for pre-training
@@ -73,7 +87,6 @@ time.
 Evaluation of proposed trackers is a vital part of the research. It also limits the use
 of annotated tracking sequences in training as training and evaluation should be done
 on different data.
-\authorcomment{present the metrics used in evaluation}
 The Visual Tracker Benchmark~\cite{VTB} is a commonly used resource for comparing
 performance to other trackers. It consists of the TB-datasets, a code library containing
 implementations of 31 publicly available trackers and ready benchmark results for the
@@ -83,3 +96,13 @@ is also in development. The original benchmark was compiled in 2015 so doesn't i
 more recent trackers in the suite. The \ac{vot}~\cite{VOT} and \ac{mot}~\cite{MOT16}
 challenges also publish both the yearly challenge suite and results, which can used to
 compare new networks against the participants.
+
+Precision and success plots are common metrics for comparing trackers against others.
+Precision plot is the average centre location error over the tracking sequence. This
+error is calculated as the distance between the centres of the tracking location and
+the hand-labeled ground truth. Success plot represents the average amount amount of
+overlap and the bounding box to the ground truth in relation to their sizes. The overlap
+score for a single frame is defined as the union of the boxes divided by their intersection.~\cite{OT_BENCH}
+The raw errors can also be used in calculating other indicators. Used examples of these
+are precision as the percentage of frames with a centre distance error below a set value
+and success rate as the percentage of frames with an overlap score above some threshold~\cite{DEEPTRACK}.
