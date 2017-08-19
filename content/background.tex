@@ -1,10 +1,13 @@
 \section{Deep Learning}
 Neural networks are heavily researched for numerous applications and they are loosely
 based on the way a brain functions. The basic model a \ac{nn} consist of inputs, outputs
-and a connecting layer of neurons. This chapter introduces the basic concepts behind
+and a connecting layer of neurons. The use and complexity of neural networks have greatly
+increased in the recent years as the massively parallel architecture of GPUs has been
+used to gain significant increases in speed compared to what is possible on CPU based
+implementations~\cite{NIPS_IMAGENET}. This chapter introduces the basic concepts behind
 general deep neural networks, convolutional neural networks and stacked denoising
-autoencoders.~\ref{ssec:dldnn} and~\ref{ssec:dlcnn} are based on the book Deep Learning by
-Goodfellow et.~al.~\cite{DEEP_LEARNING}.
+autoencoders.~\ref{ssec:dldnn} and~\ref{ssec:dlcnn} are based on the book Deep Learning
+by Goodfellow et.~al.~\cite{DEEP_LEARNING}.
 
 \subsection{Deep neural networks}\label{ssec:dldnn}
 
@@ -51,7 +54,7 @@ biases to zero or small positive values. Then an algorithm called stochastic
 gradient descent is commonly applied alongside a training dataset. The basic procedure
 is to calculate the error of the netwok's output values compared to the desired ones 
 using a loss function. The function's gradient can then be calculated for
-example by back-porpagation, which feeds the errors back through the network
+example by back-propagation, which feeds the errors back through the network
 to assign a contribution value to each unit. These values are then used to calculate
 the gradient of the loss function relative to the weights. Each weight is adjusted
 slightly to the opposite sign to minimize the loss function.
