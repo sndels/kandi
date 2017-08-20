@@ -16,7 +16,7 @@ introduced.
 \caption{Frames from a tracking sequence featuring the bounding boxes indicating results
          of several tracking algorithms. Some examples of drift from the target and
          complete tracking failure can also be observed from some of the boxes.
-         Source: Wang et.~al.~fig. 6~\cite{OBJECT_PLS}}\label{fig:tracking}
+         Source: Wang et.~al.~fig.~6~\cite{OBJECT_PLS}}\label{fig:tracking}
 \end{figure}
 
 \subsection{Target representation}
@@ -49,9 +49,9 @@ hand-labeled data and ones obtained by simple keyword searches from online image
 With the adoption of unsupervised training and architectures not working as classifiers
 unlabeled data can also be used to increase the size of the available training set.
 The labeled resources introduced here consist of sets labeled with object classes contained
-in the images and ones for tracking with the target marked in each frame.
+in the image or frame and ones for tracking with the target marked in each frame.
 
-VOC was a yearly competition for object recognition and VOC 2012 \cite{VOC12} is the last
+VOC was a yearly competition for object recognition and VOC 2012~\cite{VOC12} is the last
 challenge in the series. The datasets of the challenges are still used for pre-training
 features for detection stages in tracking networks. There are four major subsets of
 hand-labeled VOC data: classification, segmentation action classification, person layout.
@@ -87,6 +87,7 @@ time.
 Evaluation of proposed trackers is a vital part of the research. It also limits the use
 of annotated tracking sequences in training as training and evaluation should be done
 on different data.
+
 The Visual Tracker Benchmark~\cite{VTB} is a commonly used resource for comparing
 performance to other trackers. It consists of the TB-datasets, a code library containing
 implementations of 31 publicly available trackers and ready benchmark results for the
