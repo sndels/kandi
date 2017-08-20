@@ -14,18 +14,19 @@ previous tracking result each frame. They recognized crowded scenes containing m
 objects similar to the target to be especially challenging as false positives could result
 in drift from the intended target. A reference position from the previous frame was used
 to provide additional information for locating the target in the current one. They also
-considered the shift-invariancy of conventional \ac{cnn}s to present its own challenges.
-Shift-invariancy means that the position of an object does not affect the network's output,
-which is beneficial for classification tasks as it is desirable to recognize the objects
-in an image regardless of their position. However, a tracker is expected to identify the
-location of the target, which motivated the adoption of a shift-variant architecture.~\cite{HUMAN_CNN}
+considered the shift-invariance of conventional detection \ac{cnn}s to present its
+own challenges. Shift-invariance means that the position of an object does not affect the
+network's output, which is beneficial for classification tasks as it is desirable to
+recognize the objects in an image regardless of their position. However, a tracker is
+expected to identify the location of the target, which motivated the adoption of a
+shift-variant architecture.~\cite{HUMAN_CNN}
 
 \authorcomment{
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{human_cnn}
-\caption{The network Fan et.~al.~\cite{HUMAN_CNN} used featured a branching desing to
+\caption{The network Fan et.~al.~\cite{HUMAN_CNN} featured a branching desing to
          include two consecutive frames in the extracted features as well as to detect
          structures of features on both a local and global scale. Source: Fan et.
          al.~fig. 1~\cite{HUMAN_CNN}}\label{fig:human_cnn}
@@ -33,21 +34,21 @@ location of the target, which motivated the adoption of a shift-variant architec
 
 }
 
-The tracker Fan et.~al.~\cite{HUMAN_CNN} (fig.~\ref{fig:human_cnn}) presented had separate
-input layers for extracting feature maps from the current and previous frame. These were
-then downsampled together before splitting the rest of the convolutions into two branches
-to obtain both global and local structures of features. Global structures were extracted
-via a series of convolutions, while local structures were discovered by sampling the
-branching output with a single convolution. The network's final layer took the outputs of
-both branches and produced the final probability map based on them.~\cite{HUMAN_CNN}
+The tracker Fan et.~al.~presented had separate input layers for extracting feature
+maps from the current and previous frame (fig.~\ref{fig:human_cnn})~\cite{HUMAN_CNN}.
+These were then downsampled together before splitting the rest of the convolutions
+into two branches to obtain both global and local structures of features. Global
+structures were extracted with a series of convolutions, while local structures were
+discovered by sampling the branching output with a single convolution. The network's
+final layer took the outputs of both branches and produced the final probability map
+based on them.~\cite{HUMAN_CNN}
 
-Training was performed on a set of 20,000 images obtained from surveilance videos and it
-was supervised as the probabality map resulting from a pair of frames was compared to a
-target map. Online traking was done on a fixed model to avoid the drift adaptive models
-can induce. The proposed tracker perfomed especially when the target's position or the
-view changed as the tracker was trained to track humans specifically. Only being able
-to track a single class of targets is a major limitation, but more recent trackers have
-used similar approaches in conjuction with training on multiple different object classes.~\cite{HUMAN_CNN}
+Training was performed on a set of 20,000 images obtained from surveillance videos and it
+was supervised by comparing the probability map resulting from a pair of frames to a
+target map. Online tracking was done on a fixed model to avoid the drift adaptive models
+can induce. The proposed tracker performed especially well when the arget's position or
+the view changed as the tracker was trained to track humans specifically. Even so, only
+being able to track a single class of targets is a major limitation.~\cite{HUMAN_CNN}
 
 Wang and Yeung~\cite{DLT} proposed \ac{dlt}, a general object tracker consisting of a
 pre-trained \ac{sdae} and an additional classification layer. Their goal was to combine
@@ -57,61 +58,57 @@ trained to extract generic image features using 1 million randomly sampled image
 the Tiny Images dataset~\cite{TINY_IMAGES} of 80 million images labelled by their main
 subject. After training, a sigmoid classification layer was added to the encoder part
 of the \ac{sdae} to complete the tracker. The model could also be tuned during tracking
-if a significant change in the target's appearance is detected. The network could
-achieve an average frame rate of 15 frames/s on a GPU, which is sufficient for many
-real-time applications. It also compared favorably to then state of the art trackers
-on a set of 10 video sequences.
+if a significant change in the target's appearance is detected. Tracking could achieve
+an average frame rate of 15 frames/s on a GPU, which is sufficient for many real-time
+applications. The tracker also compared favorably to then state of the art trackers on
+a set of 10 video sequences.
 
 The ideas behind \ac{dlt} were developed further by Wang et.~al.~\cite{LEARNED_HIERARCH}.
 They observed that \ac{dlt} couldn't obtain deep features with temporal invariance due to
-training on unrelated images. Another remark was that \ac{dlt} doesn't have an
-integrated objective function to adapt the encoder to a target as the weights
-are only updated if the target appearance seems to have changed during tracking.
-The new \ac{cnn} based feature learning method was integrated into an existing tracking
-system called ASLSA~\cite{ASLSA}, which originally used raw pixel valus as its representations.
+training on unrelated images instead of videos. Another remark was that \ac{dlt} doesn't
+have an integrated objective function to adapt the encoder to a target as the weights are
+only updated if the target appearance seems to have changed during tracking. The new
+\ac{cnn} based feature learning method was integrated into an existing tracking system
+called ASLSA~\cite{ASLSA}, which originally used raw pixel values as its representations.
 
 The two layer feature model learned features capable of handling complicated motion
 transformations based on the work of Zou et.~al.~\cite{INVARIANT_FEATS}. It was trained
 on auxiliary video sequences and the goal was to learn features invariant between two
 frames, which results high-level features strong against non-linear motion patterns. These
 generic features didn't include appearance information of specific target objects so a
-domain adaptation module was added to both layers in order to to readjust them according
-to a specific target.~\cite{LEARNED_HIERARCH}
+domain adaptation module was added to both layers to readjust them according to a
+specific target.~\cite{LEARNED_HIERARCH}
 
 Evaluation on some challenging sequences showed that the tracker Wang et.~al.~\cite{LEARNED_HIERARCH}
-proposed was able to track targets that underwent non-rigid object deformation and in- or
-out-of-plane rotations. It was also observed to perform better than the baseline
-trackers and beat \ac{dlt} in 5 of the 8 sequences tested. However, the tracker was implemented
+proposed could track targets that underwent non-rigid object deformation and in- or
+out-of-plane rotations. It was also observed to perform better than the baseline trackers
+and beat \ac{dlt} in 5 of the 8 sequences tested. However, the tracker was implemented
 as a single-threaded CPU program and it only reached 0.6 frames/s in comparison to the 15
 frames/s of the GPU implementation of \ac{dlt}.~\cite{DLT}.
 
 \subsection{Current state of the art}
 
-The work of Ding et.~al.~\cite{BLUR_TRACK} focused on the issue of motion blur.
-They noted that generic trackers make the assumption of having a blur free video
-to work with, while motion blur is actually very common in real videos. It was stated
-that the performance of such trackers may drop significantly if applied to videos with
-severe motion blur and two challenges were mentioned for such situations: the appearance
-features of the object are damaged by blur and abrupt motion of it is difficult to
-estimate. Deblurring the input was dismissed as too computationally costly and potentially
-prone to change its appearance features.~\cite{BLUR_TRACK}
+The work of Ding et.~al.~\cite{BLUR_TRACK} focused on the issue of motion blur. They noted
+that generic trackers assume to have a blur free video to work with, while motion blur is
+very common in real videos. It was stated that the performance of such trackers may drop
+significantly if applied to videos with severe motion blur and two challenges were
+noted in such situations: the appearance features of the object are damaged by blur
+and abrupt motion of it is difficult to estimate. Deblurring the input was dismissed as
+too computationally costly and potentially prone to change appearance features.~\cite{BLUR_TRACK}
 
 A \ac{sdae} trained on blurred images was proposed as a solution for capturing blur-invariant
 features. The layers were first pre-trained in sequence and in an unsupervised setting,
-but fine-tuning of the model was done on all layers simultaneously and only the encoding
-layers are used after this point.~\cite{BLUR_TRACK}
+but fine-tuning of the model was done on all layers simultaneously. Only the encoding
+layers were used after the joint training.~\cite{BLUR_TRACK}
 
-In online tracking, the model is initialised with 100 positive samples synthesized from the
-initial bounding box by first selecting 10 bounds near it and warping them using geometric
-transformations. This is done because initializing the model with only one positive sample
-is not stable. The positive samples are also blurred using kernels simulating combinations
-of different magnitudes and directions of blur to produce a model less affected by blur
-effects. Not blurring the training samples might result in tracking failure or drift if
-abrupt and severe motion blur occurs in the beginning of the sequence. The background is
-sampled around the initial bounding box for negative samples and those are used without
-transformations. Tracking results are stored during tracking to update the model if a
-significant appearance change is detected by the maximum confidence dropping below a set
-threshold.~\cite{BLUR_TRACK}
+When initializing the online tracker, the positive samples retrieved by sampling around
+the target are blurred using kernels simulating combinations of different magnitudes
+and directions of blur to produce a model less affected by blur effects. Not blurring
+the training samples might result in tracking failure or drift if abrupt and severe
+motion blur occurs in the beginning of the sequence. The background is sampled around
+the initial bounding box for negative samples and those are used without transformations.
+Tracking results are stored during tracking to update the model if a significant
+appearance change is detected by the maximum confidence dropping below a set threshold.~\cite{BLUR_TRACK}
 
 Evaluation was done in two parts. First, severely blurred videos were used to test
 performance with severe blur and abrupt motion. After that, commonly used challenging
@@ -122,30 +119,30 @@ as the tracker ran at 5--10 frames/s on a quad-core CPU and moderately powerful 
 the implementation was said to have room for optimization.
 
 DeepTrack~\cite{DEEPTRACK} is a \ac{cnn} based tracker capable of competitive performance
-with training occuring entirely during tracking. They attributed the difficulties of
+with training occurring entirely during tracking. They attributed the difficulties of
 adopting \ac{cnn}s in tracking to a limited amount of positive training samples available
 in the tracking sequences, a tendency to overfit to the most recent observation and pure
 computational intensity. Their method employed a special type of loss function that
 consisted of a structural term and a truncated norm. The structural term was included
-to a large amount of positive samples with different significance levels considering
-the uncertainty of the object location and the truncated norm helped to reduce the
-amount of samples needed in back-propagation to accelerate training.
+to positive samples with different significance levels depending on the uncertainty of
+the object location and the truncated norm helped to reduce the number of samples needed
+in back-propagation to accelerate training.
 
 The network consisted of two convolutional layers and two fully connected layers and
 was trained on multiple low-level features extracted from the image such as normalized
 gray-scale image and image gradient. Each cue had its own channel of layers. These
 layers were trained before substituting the fully connected layers of all channels
 with a common fusion layer for joint training. The fusion layer was responsible for
-final labeling in the tracking process. 
+final labeling in the tracking process.
 
 The model was only updated when a significant change appearance change was detected
-and the fusion layer was updated using a slower rate than the preciding feature layers.
+and the fusion layer was updated using a slower rate than the preceding feature layers.
 The feature representations were assumed to change fast and each image cue to contribute
 more stably. Update was also constrained by having the window of positive samples in
 memory be longer than that of negative samples. This was done to reduce overfitting.
-The positive samples past the first frame were also considered less than reliable and
-were assigned label noise values that was taken into account when the model was updated.
-DeepTrack was shown to out perform other trackers in two benchmarking challenges
+The positive samples past the first frame were also judged less than reliable and
+were assigned a label noise value that was taken into account when the model was updated.
+DeepTrack was shown to outperform other trackers in two benchmarking challenges
 spanning 60 video sequences and it reached framerates of 2--4 frames/s on powerful
 hardware. While not exactly real-time for all applications, the framerates are comparable
 to other methods.
@@ -162,12 +159,12 @@ illumination changes and scale variations.
 
 In online tracking, the domain specific branches are substituted by a single randomly
 initialized layer that is tuned during tracking along with the shared fully connected
-layers. Model updates were handled by two mechanisms for long and short term updates.
-Short updates were only done if tracking failure was detected, while long updates
-were performed in regular intervals using positive samples gathered over a long period.
+layers. Model updates were handled by separate mechanisms for long and short term updates.
+Short term updates were only done if tracking failure was detected, while long term updates
+were performed at regular intervals using positive samples gathered over a long period.
 Both methods used negative samples from a short period since old negative samples are
 redundant or irrelevant to the current frame. Evaluation of the tracker showed good
-performance in two benchmarks with other tracking algoritms. A tracking speed of
+performance in two benchmarks with other tracking algorithms. A tracking speed of
 1 frame/s was reached on a quad-core CPU and moderately powerful GPU.
 
 Wang et.~al.~\cite{FCN_TRACK_2} observed that many of the earlier works treated \ac{dnn}s
@@ -178,19 +175,20 @@ fit the problem. High-level features help distinguishing object classes while lo
 layers provide features for discerning the target from distracters. The new tracker was
 designed to switch between the two types based on the current distracters. Second, the
 features trained on classification data are for distinguishing generic objects and some
-of them might serve as noise in tracking. Thus, a method was proposed to discard noisy
-or unrelated feature maps for the target.
+of them might serve as noise in tracking. Thus, a method was proposed for discarding
+noisy or unrelated feature maps for the target.
 
-The tracker was build on top of the 16-layer VGG network~\cite{VGG} and the layers
+The tracker was built on top of the 16-layer VGG network~\cite{VGG} and the layers
 conv4\textunderscore3 (10th) and conv5\textunderscore3 (13th) were chosen as the two
-levels of features used. Conv4\textunderscore3 was connnected to a ``specific network''
+levels of features used. Conv4\textunderscore3 was connected to a ``specific network''
 that discriminated the target from the background and Conv5\textunderscore3 fed a
 ``general network'' that captured category information. The VGG network had been
 pre-trained but the branches were initialized on the first frame of the tracking
 sequence. The two branches both output a heatmap and a distracter detection scheme
-determined which was to be used. Online updates were only done to the sepecific network
-after the first frame in using a setup similar to the Multi-Domain Network~\cite{MDNET}.
-Framerates of 3 frames/s were reached on a powerful GPU.
+determined which was to be used. After the first frame, updates were only done to
+the specific network using a setup similar to that of the Multi-Domain Network~\cite{MDNET}.
+Framerates of 3 frames/s were reached on a powerful GPU with competitive performance in
+a benchmark.
 
 \authorcomment{
 \cite{DISCR_SALIENCY}

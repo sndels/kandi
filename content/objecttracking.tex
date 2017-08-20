@@ -4,7 +4,7 @@ tracker is to follow a target through a video sequence with the target's locatio
 initial location commonly indicated in the first frame. It is important to make the
 distinction between object tracking and object detection like the face detection that's
 available for many smartphones and cameras. Detection searches for objects matching
-a set class of objects from the image, but a tracker has to keep track of an individual
+a set class of objects from the image, but a tracker must keep track of an individual
 object based on its texture and other unique characteristics. In this chapter, the
 common target representations used in tracking are discussed along with some datasets
 typically used for training or evaluation. Methodology for evaluating trackers is also
@@ -41,7 +41,7 @@ During tracking, the appearance of the target may change for example due to chan
 orientation. Some trackers adapt the tracking model online to be robust against such
 changes, but care must be taken in designing the update algorithm as it could result
 to drift. Models using online updates have implemented it for example with results of
-previous succesful tracking results~\cite{BLUR_TRACK}.
+previous successful tracking results~\cite{BLUR_TRACK}.
 
 \subsection{Datasets}
 Research on networks working with image data has been made easier by larger sets of both
@@ -59,10 +59,10 @@ Classification datasets consist of images annotated with the objects contained a
 boxes for the objects drawn in the image itself while image segmentation sets provide
 additional mask images of the objects and classes in each shot. Action classification sets
 contain descriptions and bounding boxes of actions the subjects are performing and person
-layout sets contain bounding boxes for the subjects head, hands and feet.
+layout sets contain bounding boxes for the subject's head, hands and feet.
 \authorcomment{image examples of the datasets, descriptions to annotations}
 
-The \ac{ilsvrc} \cite{ILSVRC15} is another recognition challenge running since 2010. The
+The \ac{ilsvrc}~\cite{ILSVRC15} is another recognition challenge running since 2010. The
 most recent dataset consists of subsets of object localization, object detection and
 object detection from video. The last subset is especially beneficial object tracking
 tasks as it provides data for training on actual tracking data. The other two sets are also
@@ -94,15 +94,15 @@ included trackers. The code library is implemented using MATLAB and all included
 have been modified to use unified input and output formats. A Python-based testing suite
 is also in development. The original benchmark was compiled in 2015 so doesn't include
 more recent trackers in the suite. The \ac{vot}~\cite{VOT} and \ac{mot}~\cite{MOT16}
-challenges also publish both the yearly challenge suite and results, which can used to
+challenges also publish both the yearly challenge suite and results that can used to
 compare new networks against the participants.
 
 Precision and success plots are common metrics for comparing trackers against others.
-Precision plot is the average centre location error over the tracking sequence. This
-error is calculated as the distance between the centres of the tracking location and
-the hand-labeled ground truth. Success plot represents the average amount amount of
-overlap and the bounding box to the ground truth in relation to their sizes. The overlap
-score for a single frame is defined as the union of the boxes divided by their intersection.~\cite{OT_BENCH}
+Precision plot is the average center location error over the tracking sequence. This
+error is calculated as the distance between the centers of the tracking location and
+the hand-labeled ground truth. Success plot represents the average amount of overlap
+and the bounding box to the ground truth in relation to their sizes. The overlap score
+for a single frame is defined as the union of the boxes divided by their intersection.~\cite{OT_BENCH}
 The raw errors can also be used in calculating other indicators. Used examples of these
-are precision as the percentage of frames with a centre distance error below a set value
+are precision as the percentage of frames with a center distance error below a set value
 and success rate as the percentage of frames with an overlap score above some threshold~\cite{DEEPTRACK}.

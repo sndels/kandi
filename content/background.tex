@@ -11,33 +11,33 @@ by Goodfellow et.~al.~\cite{DEEP_LEARNING}.
 
 \subsection{Deep neural networks}\label{ssec:dldnn}
 
-A \ac{dnn} is commonly defined as a \ac{nn} that has a visible input and
-output layer with several hidden layers between them. The distinction between
-visible and hidden layers is important because training of the network only evaluates
-the output layer's performance. During training, a learning algorithm optimizes
-the individual hidden layers to best approximate the desired output of the whole network.
+A \ac{dnn} is commonly defined as a \ac{nn} that has a visible input and output layer
+with several hidden layers between them. The distinction between visible and hidden
+layers is important because training of the network only evaluates the output layer's
+performance. During training, a learning algorithm optimizes the individual hidden
+layers to best approximate the desired output of the whole network.
 
 The input layer takes in the data to be processed, which typically means a vector of
 color values in the case of object tracking. These are then processed by the hidden
 layers and finally the output layer produces the target's position in the frame. These
-models usually come in the form of a feedforward neural network or
-\ac{mlp}. The name comes from the fact that information flows from the input
-through computations to the output with no feedback connections. Typically
-this means that connections are only between consecutive layers.
+models usually come in the form of a feedforward neural network or \ac{mlp}. The name
+comes from the fact that information flows from the input through computations to the
+output with no feedback connections. Typically, this means that connections are only
+between consecutive layers.
 
-In \ac{nn}s, each layer consist of several units with an activation function
-and a weight for each of their input connections. The weights of the layer's inputs
-are commonly represented by a matrix by which the input vector is multiplied as each
-row represents a unit's input weights. All of the units can be connected to all of the
-inputs (fig.\ref{fig:fcon}) forming a fully connected layer or just some of them
-(fig.\ref{fig:scon}) utilizing sparse connections. Sparse layers can be implemented
-by defining unique input vectors for the units. Units in a layer have a common activation
-function that is fed by the sum of its weighted inputs. The \ac{relu} is a
-commonly used unit type and is defined by the activation function $g (z) = \max\{0,z\}$.
-It provides a nonlinear transformation while being comparable to linear models in terms
-of generalizing well and being easy to optimize. A bias-term can also be defined for
-each unit and a vector containing the layer's biases is summed to the outputs of the
-activation function before passing the results to the next layer.
+In \ac{nn}s, each layer consists of several units with an activation function and a
+weight for each of their input connections. The weights of the layer's inputs are
+commonly represented by a matrix by which the input vector is multiplied as each row
+represents a unit's input weights. All units can be connected to all inputs (fig.\ref{fig:fcon})
+forming a fully connected layer or just some of them (fig.\ref{fig:scon}) utilizing
+sparse connections. Sparse layers can be implemented by defining unique input vectors
+for the units. Units in a layer have a common activation function that is fed by the
+sum of its weighted inputs. The \ac{relu} is a commonly used unit type and is defined
+by the activation function $g (z) = \max\{0,z\}$. It provides a nonlinear transformation
+while being comparable to linear models in terms of generalizing well and being easy to
+optimize. A bias-term can also be defined for each unit and a vector containing the layer's
+biases is summed to the outputs of the activation function before passing the results to
+the next layer.
 
 \begin{figure}[H]
 \centering
@@ -49,15 +49,14 @@ activation function before passing the results to the next layer.
          function and their units can be assigned individual weights.}\label{fig:fcon}
 \end{figure}
 
-Before training, the weights of a \ac{mlp} are initialized to small random values and 
-biases to zero or small positive values. Then an algorithm called stochastic
-gradient descent is commonly applied alongside a training dataset. The basic procedure
-is to calculate the error of the netwok's output values compared to the desired ones 
-using a loss function. The function's gradient can then be calculated for
-example by back-propagation, which feeds the errors back through the network
-to assign a contribution value to each unit. These values are then used to calculate
-the gradient of the loss function relative to the weights. Each weight is adjusted
-slightly to the opposite sign to minimize the loss function.
+Before training, the weights of a \ac{mlp} are initialized to small random values and
+biases to zero or small positive values. Then an algorithm called stochastic gradient
+descent is commonly applied alongside a training dataset. The basic procedure is to
+calculate the error of the network's output values compared to the desired ones using
+a loss function. The function's gradient can then be calculated for example by back-propagation,
+which feeds the errors back through the network to assign a contribution value to each unit.
+These values are then used to calculate the gradient of the loss function relative to the
+weights. Each weight is adjusted slightly to the opposite sign to minimize the loss function.
 
 \subsection{Convolutional neural networks}\label{ssec:dlcnn}
 
@@ -74,13 +73,13 @@ learned in training.
 A typical convolutional layer consists of three stages: a convolution stage, detector
 stage and pooling stage. These operations can be implemented by individual layers. First,
 the multiplication of the kernel and the input data is performed in positions separated by
-a stepsize. The result is then fed to a linear activation function. In the detector stage,
+a step size. The result is then fed to a linear activation function. In the detector stage,
 the results are then run through a non-linear activation, for example a \ac{relu}. Finally,
-a pooling function is used to combine the results of multiple nearby activations
-as the final output.
+a pooling function is used to combine the results of multiple nearby activations as the
+final output.
 
 The main motivations in using \ac{cnn}s are sparse interactions, parameter sharing
-and equivariant interactions. Units in traditional layers are connected to all of the
+and equivariant interactions. Units in traditional layers are connected to the whole
 input so an input sized \textit{m} and output of size \textit{n} form a computational
 complexity of $m \times n$. Convolutional layers' units typically only connect to a small
 portion of the input, which can be a significant decrease in computation: a kernel of
@@ -95,7 +94,7 @@ inherent to convolution so other mechanisms are required for handling them.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{cnn}
-\caption{Stacking convolutions can can provide deeper layers indirect connections to
+\caption{Stacking convolutions can provide deeper layers indirect connections to
          most or all of the input data even though their direct connections are sparse.
          This forms hierarchies of features that are useful for capturing larger concepts
          and the effect increases if a strided convolution or pooling is used.~\cite{DEEP_LEARNING}
