@@ -1,40 +1,35 @@
-\section{Yhteenveto}
-
 \clearpage
-
-\setcounter{subsection}{-1}
-\let\oldsubsection=\thesubsection
-\renewcommand{\thesubsection}{\thesection}
-
-\subsection{Yhteenveto}
-
-351885 Santeri Salmijärvi (santeri.salmijarvi@aalto.fi)\\
-Tekstipaja 2: Henna Juslin 15.8. 12-13:30\\
-(Varsinainen käsittelyosa on vielä kesken, joten näyte esittelee taustateoriaa)\\
-Kohteenseuranta on aktiivisesti tutkittu konenäön osa-alue, jossa tavoitteena on seurata
-osoitettua kohdetta videossa. Sillä on sovelluksia muun muassa videovalvonnassa, koneen ja
-ihmisen välisessä viestinnässä sekä lisätyssä todellisuudessa. Luonteeltaan kohteenseurannalla
-on yhtäläisyyksiä kuva-analyysisovelluksiin ja täten myös käytetyt menetelmät ovat osittain
-samoja. Viime vuosina kohteenseurantaan onkin sovellettu myös syviä neuroverkkoja niiden
-menestyttyä kuvaluokittelussa. Tämän työ perehtyy syväoppimiseen, kohteenseurantaan sekä
-siihen käytettyihin syviin neuroverkkoihin. Lisäksi työssä käsitellään tehtävään tarkoittettujen
-verkkojen vertailuperiaatteita ja käytettyjä aineistoja.
+\section*{Yhteenveto}
+Kohteenseuranta videossa on aktiivisesti tutkittu konenäön osa-alue, jossa tavoitteena
+on seurata osoitettua kohdetta videossa. Seurantaa ei tule sekoittaa monista älypuhelimistakin
+löytyvään tunnistukseen, jossa tarkoitus on vain löytää tietyn kohdeluokan edustajat
+kuvasta. Sovelluksia koohteenseurannalla muun muassa videovalvonnassa, koneen ja ihmisen
+välisessä viestinnässä sekä lisätyssä todellisuudessa. Luonteeltaan kohteenseurannalla on
+yhtäläisyyksiä kuva-analyysisovelluksiin ja myös käytetyt menetelmät ovat osittain samoja.
+Viime vuosina kohteenseurantaan onkin sovellettu myös syviä neuroverkkoja niiden menestyttyä
+kuvaluokittelussa. Tämän työ perehtyy syväoppimiseen, kohteenseurantaan sekä siihen
+käytettyihin syviin neuroverkkoihin. Lisäksi työssä käsitellään tehtävään tarkoitettujen
+verkkojen vertailuperiaatteita ja käytettyjä aineistoja. Keskeisimmät tutkimuskysymykset
+ovat seuraavat: millaisia syviä neuroverkkorakenteita on käytetty kohteenseurantaan, kuinka
+syvien verkkojen käyttö auttaa kyseisissä verkoissa ja mitä heikkouksia syvillä rakenteilla
+on seurannan kannalta. Työ on luonteeltaan puhdas kirjallisuuskatsaus.
 
 Keinotekoinen neuroverkko on löyhästi aivojen toimintaperiaatteiden mukaan rakennettu
 koneoppimismalli, joka mallinnetaan yleisimmin syötteinä, tulosteina ja niitä yhdistävänä
 sarjana kerroksia. Kerrokset koostuvat neuroneista, joilla on sarja painotettuja syötteitä,
-niiden summalla syötettävä aktivointifunktio ja mahdollinen poikkeutusarvo. Kohteenseurannassa
-tyypillinen neuronityyppi on Rectified Linear Unit, joka toteuttaa aktivointifunktiota
-$g (z) = \max\{0,z\}$. Se tuottaa hyöydyllisen epälineaarisen muunnoksen syötteistä, mutta
-sen yleistyminen ja optimoinnin keveys ovat silti vertailukelpoisia lineaaristen mallien kanssa.
-Syötteet ja tulosteet voidaan mallintaa vektoreina ja painot sekä poikkeutukset matriiseina.
+syötteiden summalla syötettävä aktivaatiofunktio ja mahdollinen poikkeutusarvo. Kohteenseurannassa
+tyypillinen neuronityyppi on tasasuunnattu lineaariyksikkö (rectified linear unit), joka
+toteuttaa aktivaatiofunktiota $g (z) = \max\{0,z\}$. Se tuottaa hyöydyllisen epälineaarisen
+muunnoksen syötteistä, mutta sen yleistyminen ja optimoinnin keveys ovat silti vertailukelpoisia
+lineaaristen mallien kanssa. Syötteet ja tulosteet voidaan mallintaa vektoreina ja painot sekä
+poikkeutukset matriiseina.
 
 Syvä neuroverkko tarkoittaa tyypillisesti neuroverkkoa, jossa välikerroksina on monta
 piilotettua kerrosta. Koko verkkoa siis opetetaan tuottamaan syötteistä haluttu tuloste
 välittämättä yksittäisen välikerroksen tulosteista. Yleisin kohteenseurannassa käytetty
-verkkotyyppi on eteenpäin syöttävä eli ns. MultiLayer Perceptron (MLP). Eteenpäin syöttävässä
-verkossa tieto kulkee aina kerroksesta seuraavaan, eikä niiden välillä ole esimerkiksi
-takaisinkytkentöjä.
+verkkotyyppi on eteenpäin syöttävä eli niin sanottu monikerrosperseptroni (multilayer
+perceptron). Eteenpäin syöttävässä verkossa tieto kulkee aina kerroksesta seuraavaan,
+eikä niiden välillä ole esimerkiksi takaisinkytkentöjä.
 
 Verkon painot alustetaan tyypillisesti pienillä satunnaisluvuilla ja poikkeutusarvot nollaan
 tai pieniin satunnaislukuihin. Yksinkertaisimmillaan koneoppiminen toteutetaan syöttämällä
@@ -55,18 +50,19 @@ kernelinsä rajoittamaa osaa syötteestä, mutta konvoluutiokerrosten ketjuttami
 syvemmät kerrokset ovat epäsuorassa yhteydessä koko verkon syötteeseen tai suurimpaan
 osaan siitä.
 
-Konvoluutioverkon kerros muodostuu kolmesta vaiheesta: konvoluutio, tunnistus ja kerääminen.
-Ne voidaan mallintaa verkkoon erillisinä kerroksina mahdollistaen modulaarisen rakenteen.
-Konvoluutiovaiheessa syöte käsitellään kerneliä liikuttaen. Tunnistusvaiheessa suoritetaan
-useita konvoluutioita rinnakkain ja kukin niistä syötetään lineaariseen aktivointifunktioon.
-Nämä tulosteet syötetään tunnistusvaiheessa epälineaariseen aktivointifunktioon ja
-keräämisvaiheessa lähekkäiset tunnistuksen tulosteet yhdistetään keräysfunktiolla.
+Konvoluutioverkon kerros muodostuu kolmesta vaiheesta: konvoluutiosta, tunnistusksesta ja
+keräämisestä. Ne voidaan mallintaa verkkoon erillisinä kerroksina, mikä mahdollistaa
+modulaarisen rakenteen. Konvoluutiovaiheessa syöte käsitellään kerneliä liikuttaen.
+Tunnistusvaiheessa suoritetaan useita konvoluutioita rinnakkain ja kukin niistä syötetään
+lineaariseen aktivaatiofunktioon. Nämä tulosteet syötetään tunnistusvaiheessa epälineaariseen
+aktivaatiofunktioon ja keräämisvaiheessa lähekkäiset tunnistuksen tulosteet yhdistetään
+keräysfunktiolla.
 
 Kohteenseurantaa videossa on tutkittu vuosikymmeniä. Tyypillisesti seuranta tapahtuu videosta,
 jonka ensimmäisessä kuvassa on osoitettu haluttu seurannan kohde, mutta joissain tapauksissa
-sovelluksen on löydettävä se kuvauksen perusteella. Tehtävä ei ole laajasta tutkimuksesta
-huolimatta ratkaistu ja seurannan epäonnistumista aiheuttavat edelleen hankalat olosuhteet
-kuten liike-epäterävyys tai kohteen hetkellinen poistuminen kuvasta.
+sovelluksen on löydettävä se kuvauksen perusteella. Tehtävää ei olla laajasta tutkimuksesta
+huolimatta ratkaistu, ja seurannan epäonnistumista aiheuttavat edelleen hankalat olosuhteet,
+kuten liikeepäterävyys tai kohteen hetkellinen poistuminen kuvasta.
 
 Merkittävät varhaiset sovellukset hyödynsivät kohteesta otettuja kuvasarjoja kohteen etsimiseksi
 tai esittivät kohteen sen rajat määrittävänä käyränä. Modernit seurantamenetelmät voidaan jakaa
@@ -92,5 +88,35 @@ samaa aineistoa käyttämällä. Yksi käytetyistä aineistoista on Visual Track
 TB-50, johon on julkaistu sen tekohetkellä merkittävien vapaasti saatavilla olleiden sovellusten
 tulokset vertailua varten. Myös VOT:n kaltaisten kilpailujen tuloksia ja aineistoja voidaan
 käyttää myöhempien menetelmien arviointiin.
+
+Viimeaikaiset syviä neuroverkkoja hyödyntävät kohteenseurantasovellukset käyttävät
+tyypillisesti konvoluutioneuroverkkoa piirteiden etsimiseen kuvasta, jolloin varsinainen
+paikannus voidaan toteuttaa esimerkiksi binäärisenä luokitteluna kohteen ja taustan
+välillä. Tavanomaiset käsin määritettyjä malleja käyttävät menetelmät kykenevät seurantaan
+hyvin, mikäli videossa ei esiinny hankalia olosuhteita. Syvien verkkojen koulutuksessa
+oppimien yleisten piirteiden toivotaan poistavan luokkakohtaisen tiedon tarve menetelmää
+suunniteltaessa, sillä yleisten piirteiden avulla verkko voi luoda kohteesta mallin
+tuntematta sitä ennakkoon. Verkon painoja voidaan myös säätää seurannan aikana automaattisesti,
+mikäli kohteen ulkonäössä havaitaan merkittävä muutos.
+
+Tuoreessa tutkimuksessa on kiinnitetty huomiota syvässä verkossa esiintyvien piirteiden
+erilaisiin ominaisuuksiin käsiteltävän tason sijainnista riippuen. Loppupään tasot
+tuottavat korkean piirteitä, joista on erityisesti hyötyä kohteen luokittelussa. Aiemmilta
+tasoilta voidaan saada tietoa esimerkiksi kohteen tekstuurista tai muista yksilöllisistä
+ominaisuuksista, jotka ovat hyödyllisiä seurattavan kohteen erottamisessa mahdollisista
+muista samankaltaisista kappaleista. Eritasoisia piirteitä voidaan hyödyntää esimerkiksi
+haarauttamalla verkko yhteisiä piirteitä eristävien tasojen jälkeen ja käyttämällä
+jalostettuja piirrekarttoja lopulliseen paikallistamiseen seurannan tilasta riippuen.
+
+Julkaistun tutkimuksen perusteella syviä neuroverkkoja hyödyntämällä voidaan kehittää
+kilpailukykyisiä kohteenseurantasovelluksia ja esimerkiksi DeepTrackin osoitettiin
+kykenevän muita julkaisuhetkellä hallinneita seuraimia parempiin tuloksiin. Syviä
+verkkoja on kuitenkin sovellettu kohteenseurantaan vasta verrattain lyhyen ajan, eikä
+vertailuja niiden sovellusten välillä ole juurikaan tehty. On siis vaikea tehdä johtopäätöksiä
+yksittäisten syvien seurainten paremmuudesta. Suurimpana haasteena on tällä hetkellä
+menetelmien huomattavan suuret tehovaatimukset, sillä moni niistä kykeni vain muutaman
+kuvan käsittelyyn sekunnissa. Harva toteutus on kuitenkaan ollut erityisesti optimoitu,
+joten etenkin saatavilla olevan laskentatehon kasvaessa yhä useammilla menetelmillä voidaan
+saavuttaa myös reaaliaikaiseen seurantaan tarvittava käsittelynopeus.
 
 \renewcommand{\thesubsection}{\oldsubection}
