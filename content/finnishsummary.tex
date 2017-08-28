@@ -19,7 +19,7 @@ koneoppimismalli, joka mallinnetaan yleisimmin syötteinä, tulosteina ja niitä
 sarjana kerroksia. Kerrokset koostuvat neuroneista, joilla on sarja painotettuja syötteitä,
 syötteiden summalla syötettävä aktivaatiofunktio ja mahdollinen poikkeutusarvo. Kohteenseurannassa
 tyypillinen neuronityyppi on tasasuunnattu lineaariyksikkö (rectified linear unit), joka
-toteuttaa aktivaatiofunktiota $g (z) = \max\{0,z\}$. Se tuottaa hyöydyllisen epälineaarisen
+toteuttaa aktivaatiofunktiota $g (z) = \max\{0,z\}$. Se tuottaa hyödyllisen epälineaarisen
 muunnoksen syötteistä, mutta sen yleistyminen ja optimoinnin keveys ovat silti vertailukelpoisia
 lineaaristen mallien kanssa. Syötteet ja tulosteet voidaan mallintaa vektoreina ja painot sekä
 poikkeutukset matriiseina.
@@ -50,7 +50,7 @@ kernelinsä rajoittamaa osaa syötteestä, mutta konvoluutiokerrosten ketjuttami
 syvemmät kerrokset ovat epäsuorassa yhteydessä koko verkon syötteeseen tai suurimpaan
 osaan siitä.
 
-Konvoluutioverkon kerros muodostuu kolmesta vaiheesta: konvoluutiosta, tunnistusksesta ja
+Konvoluutioverkon kerros muodostuu kolmesta vaiheesta: konvoluutiosta, tunnistuksesta ja
 keräämisestä. Ne voidaan mallintaa verkkoon erillisinä kerroksina, mikä mahdollistaa
 modulaarisen rakenteen. Konvoluutiovaiheessa syöte käsitellään kerneliä liikuttaen.
 Tunnistusvaiheessa suoritetaan useita konvoluutioita rinnakkain ja kukin niistä syötetään
@@ -62,7 +62,7 @@ Kohteenseurantaa videossa on tutkittu vuosikymmeniä. Tyypillisesti seuranta tap
 jonka ensimmäisessä kuvassa on osoitettu haluttu seurannan kohde, mutta joissain tapauksissa
 sovelluksen on löydettävä se kuvauksen perusteella. Tehtävää ei olla laajasta tutkimuksesta
 huolimatta ratkaistu, ja seurannan epäonnistumista aiheuttavat edelleen hankalat olosuhteet,
-kuten liikeepäterävyys tai kohteen hetkellinen poistuminen kuvasta.
+kuten liike-epäterävyys tai kohteen hetkellinen poistuminen kuvasta.
 
 Merkittävät varhaiset sovellukset hyödynsivät kohteesta otettuja kuvasarjoja kohteen etsimiseksi
 tai esittivät kohteen sen rajat määrittävänä käyränä. Modernit seurantamenetelmät voidaan jakaa
@@ -108,17 +108,25 @@ muista samankaltaisista kappaleista. Eritasoisia piirteitä voidaan hyödyntää
 haarauttamalla verkko yhteisiä piirteitä eristävien tasojen jälkeen ja käyttämällä
 jalostettuja piirrekarttoja lopulliseen paikantamiseen.
 
+Eritasoisten piirteiden lisäksi osa tutkimuksesta on päätynyt poistamaan piirteiden
+esikouluttamisen kokonaan. DeepTrack on esimerkki konvoluutioverkkoja piirteiden
+etsintään käyttävästä sovelluksesta, joka ei tarvitse lainkaan koulutusta ennen
+varsinaista seurantaa. Se oppii kohteenseurantaan soveltuvat piirteet täysin seurannan
+alussa ja hienosäätää niitä muutosten ilmetessä. Tehokkaan seurantaverkon kouluttaminen
+voi viedä sen rakenteesta riippuen tunneista päiviin, joten koulutustarpeen poistaminen
+on merkittävä etu.
+
 Julkaistun tutkimuksen perusteella syviä neuroverkkoja hyödyntämällä voidaan kehittää
 kilpailukykyisiä kohteenseurantasovelluksia ja esimerkiksi DeepTrackin osoitettiin
-kykenevän muita julkaisuhetkellä hallinneita seuraimia parempiin tuloksiin. Syviä
-verkkoja on kuitenkin sovellettu kohteenseurantaan vasta verrattain lyhyen ajan, eikä
-vertailuja niitä hyödyntävien seurantasovellusten välillä ole juurikaan tehty. On siis
-vaikea tehdä johtopäätöksiä yksittäisten syvien seurainten paremmuudesta. Suurimpana
-haasteena on tällä hetkellä menetelmien huomattavan suuret tehovaatimukset, sillä
-moni esitetyistä menetelmistä kykeni vain muutaman kuvan käsittelyyn sekunnissa.
-Toteutukset eivät kuitenkaan ole olleet erityisen optimoituja, joten esimerkiksi
-erikseen hiotulla GPU-implementaatiolla voidaan saavuttaa merkittäviä parannuksia
-seurantanopeuteen. Myös saatavilla olevan laskentatehon jatkuva kasvu tukee reaaliaikaisten
-seurantasovellusten kehitystä.
+kykenevän verrokkisovelluksia parempiin tuloksiin. Syviä verkkoja on kuitenkin sovellettu
+kohteenseurantaan vasta verrattain lyhyen ajan, eikä kattavia vertailuja niitä hyödyntävien
+seurantasovellusten välillä ole tehty. On siis vaikea tehdä johtopäätöksiä yksittäisten
+sovellusten paremmuudesta. Suurimpana haasteena syvien verkkojen käytössä kohteenseurantasovelluksissa
+on tällä hetkellä mallien laskennallinen raskaus, sillä moni esitetyistä menetelmistä
+kykeni vain muutaman kuvan käsittelyyn sekunnissa. Toteutukset eivät kuitenkaan ole olleet
+erityisen optimoituja, joten esimerkiksi erikseen hiotulla näytönohjainta hyödyntävällä
+implementaatiolla voidaan saavuttaa merkittäviä parannuksia seurantanopeuteen. Myös
+saatavilla olevan laskentatehon jatkuva kasvu tukee reaaliaikaisten syviä neuroverkkoja
+käyttävien seurantasovellusten kehitystä.
 
 \renewcommand{\thesubsection}{\oldsubection}
