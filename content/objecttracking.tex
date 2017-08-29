@@ -5,19 +5,21 @@ initial location commonly indicated in the first frame. It is important to make 
 distinction between object tracking and object detection like the face detection that's
 available for many smartphones and cameras. Detection searches for objects matching
 a set class of objects from the image, but a tracker must keep track of an individual
-object based on its texture and other unique characteristics. In this chapter, the
-common target representations used in tracking are discussed along with some datasets
-typically used for training or evaluation. Methodology for evaluating trackers is also
-introduced.
+object based on its texture and other unique characteristics. Figure~\ref{fig:tracking}
+shows an example of a car being tracked.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{tracking}
 \caption{Frames from a tracking sequence featuring the bounding boxes indicating results
-         of several tracking algorithms. Some examples of drift from the target and
-         complete tracking failure can also be observed from some of the boxes.
-         Source: Wang et.~al.~fig.~6~\cite{OBJECT_PLS}}\label{fig:tracking}
+         of several tracking algorithms. Examples of drift from the target (BOT) and even
+         total tracking failure (L1T, MIL) can be observed from some boxes. Source: Wang
+         et.~al.~\cite{OBJECT_PLS}}\label{fig:tracking}
 \end{figure}
+
+In this chapter, the common target representations used in tracking are discussed
+along with some datasets typically used for training or evaluation. Methodology for
+evaluating trackers is also introduced.
 
 \subsection{Target representation}
 Early influential works in the field have used target models including subspaces
@@ -74,10 +76,10 @@ with reference positions for the target on each frame. Because some of the targe
 similar or less challenging, a subset of 50 sequences considered challenging is also
 provided as TB-50.~\cite{OT_BENCH}
 
-The datasets used for the \ac{vot}~\cite{VOT} can also be used for training networks. The competition
-is run yearly with updated evaluation sets which can be used for training as training
-data for a network but the challenge itself prohibits training on tracking datasets for
-participants.
+The datasets used for the \ac{vot}~\cite{VOT} can also be used for training networks. The
+competition is run yearly with updated evaluation sets which can be used for training as
+training data for a network but the challenge itself prohibits training on tracking datasets
+for participants.
 
 There is also the yearly \ac{mot}~\cite{MOT16} for testing multiple object trackers but
 its unique sequences can also be used to train single object trackers one object at a
@@ -107,3 +109,8 @@ for a single frame is defined as the union of the boxes divided by their interse
 The raw errors can also be used in calculating other indicators. Used examples of these
 are precision as the percentage of frames with a center distance error below a set value
 and success rate as the percentage of frames with an overlap score above some threshold~\cite{DEEPTRACK}.
+
+Publications of new trackers typically include their own benchmarking results based
+on some of the aforementioned sets or some custom sample of sequences. Notable trackers
+have also been reviewed in articles focusing on comparing the state of the art
+methods~\cite{OT_BENCH}~\cite{VOT}.

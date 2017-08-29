@@ -27,7 +27,7 @@ shift-variant architecture.~\cite{HUMAN_CNN}
 \caption{The network Fan et.~al.~\cite{HUMAN_CNN} featured a branching desing to
          include two consecutive frames in the extracted features as well as to detect
          structures of features on both a local and global scale. Source: Fan et.
-         al.~fig.~1~\cite{HUMAN_CNN}}\label{fig:human_cnn}
+         al.~\cite{HUMAN_CNN}}\label{fig:human_cnn}
 \end{figure}
 
 The tracker Fan et.~al.~presented had separate input layers for extracting feature
@@ -39,35 +39,40 @@ discovered by sampling the branching output with a single convolution. The netwo
 final layer took the outputs of both branches and produced the final probability map
 based on them.~\cite{HUMAN_CNN}
 
-Training was performed on a set of 20,000 images obtained from surveillance videos and it
-was supervised by comparing the probability map resulting from a pair of frames to a
-target map. Online tracking was done on a fixed model to avoid the drift adaptive models
-can induce. The proposed tracker performed especially well when the arget's position or
-the view changed as the tracker was trained to track humans specifically. Even so, only
-being able to track a single class of targets is a major limitation.~\cite{HUMAN_CNN}
+Training of the network was performed on a set of 20,000 images obtained from
+surveillance videos and it was supervised by comparing the probability map resulting from
+a pair of frames to a target map. Online tracking was done on a fixed model to avoid the
+drift adaptive models can induce. The proposed tracker performed especially well when the
+arget's position or the view changed as the tracker was trained to track humans
+specifically. Even so, only being able to track a single class of targets is a major
+limitation.~\cite{HUMAN_CNN}
 
-Wang and Yeung~\cite{DLT} proposed \ac{dlt}, a general object tracker consisting of a
-pre-trained \ac{sdae} and an additional classification layer. Their goal was to combine
-philosophies of generative and discriminative trackers by developing a discriminative
-tracker that learns and uses an effective image representation. The \ac{sdae} was
-trained to extract generic image features using 1 million randomly sampled images from
-the Tiny Images dataset~\cite{TINY_IMAGES} of 80 million images labelled by their main
-subject. After training, a sigmoid classification layer was added to the encoder part
-of the \ac{sdae} to complete the tracker. The model could also be tuned during tracking
-if a significant change in the target's appearance is detected. Tracking could achieve
-an average frame rate of 15 frames/s on a GPU, which is sufficient for many real-time
-applications. The tracker also compared favorably to then state of the art trackers on
-a set of 10 video sequences.~\cite{DLT}
+Another influential tracker, the \ac{dlt}~\cite{DLT}, was a general object tracker
+consisting of a pre-trained \ac{sdae} and an additional classification layer. Their goal
+was to combine philosophies of generative and discriminative trackers by developing a
+discriminative tracker that learns and uses an effective image representation. The
+\ac{sdae} was trained to extract generic image features using 1 million randomly sampled
+images from the Tiny Images dataset~\cite{TINY_IMAGES} of 80 million images labelled by
+their main subject. After training, a sigmoid classification layer was added to the
+encoder part of the \ac{sdae} to complete the tracker. The model could also be tuned
+during tracking if a significant change in the target's appearance is detected. Tracking
+could achieve an average frame rate of 15 frames/s on a GPU, which is sufficient for many
+real-time applications. The tracker also compared favorably to then state of the art
+trackers on a set of 10 video sequences.~\cite{DLT}
 
 \subsection{Current state of the art}
+These trackers include some of the novel approaches that have been researched in the
+recent years.
 
+\subsubsection{Evolution of Deep Learning Tracker}
 The ideas behind \ac{dlt} were developed further by Wang et.~al.~\cite{LEARNED_HIERARCH}.
 They observed that \ac{dlt} couldn't obtain deep features with temporal invariance due to
 training on unrelated images instead of videos. Another remark was that \ac{dlt} doesn't
 have an integrated objective function to adapt the encoder to a target as the weights are
 only updated if the target appearance seems to have changed during tracking. The new
 \ac{cnn} based feature learning method was integrated into an existing tracking system
-called ASLSA~\cite{ASLSA}, which originally used raw pixel values as its representations.~\cite{LEARNED_HIERARCH}
+called ASLSA~\cite{ASLSA}, which originally used raw pixel values as its
+representations.~\cite{LEARNED_HIERARCH}
 
 The two layer feature model learned features capable of handling complicated motion
 transformations based on the work of Zou et.~al.~\cite{INVARIANT_FEATS}. It was trained
@@ -84,6 +89,7 @@ and beat \ac{dlt} in 5 of the 8 sequences tested. However, the tracker was imple
 as a single-threaded CPU program and it only reached 0.6 frames/s in comparison to the 15
 frames/s of the GPU implementation of \ac{dlt}~\cite{DLT}.
 
+\subsubsection{Tracking of severely blurred objects}
 The work of Ding et.~al.~\cite{BLUR_TRACK} focused on the issue of motion blur. They noted
 that generic trackers assume to have a blur free video to work with, while motion blur is
 very common in real videos. It was stated that the performance of such trackers may drop
@@ -104,7 +110,8 @@ the training samples might result in tracking failure or drift if abrupt and sev
 motion blur occurs in the beginning of the sequence. The background is sampled around
 the initial bounding box for negative samples and those are used without transformations.
 Tracking results are stored during tracking to update the model if a significant
-appearance change is detected by the maximum confidence dropping below a set threshold.~\cite{BLUR_TRACK}
+appearance change is detected by the maximum confidence dropping below a set
+threshold.~\cite{BLUR_TRACK}
 
 Evaluation was done in two parts. First, severely blurred videos were used to test
 performance with severe blur and abrupt motion. After that, commonly used challenging
@@ -114,6 +121,7 @@ categories and good results were shown overall. Real-time tracking seems also fe
 as the tracker ran at 5--10 frames/s on a quad-core CPU and moderately powerful GPU while
 the implementation was said to have room for optimization.~\cite{BLUR_TRACK}
 
+\subsubsection{DeepTrack}
 DeepTrack~\cite{DEEPTRACK} is a \ac{cnn} based tracker capable of competitive performance
 with training occurring entirely during tracking. They attributed the difficulties of
 adopting \ac{cnn}s in tracking to a limited amount of positive training samples available
@@ -137,7 +145,7 @@ final labeling in the tracking process.~\cite{DEEPTRACK}
 \caption{DeepTrack extacted three cues from each frame and each of them were passed
          to their own branch of two convolutional layers and two fully connected ones.
          A fusion layer then combined their outputs to the final output.~\cite{DEEPTRACK} Source: Li et.
-         al.~fig.~1~\cite{DEEPTRACK}}\label{fig:deeptrack}
+         al.~\cite{DEEPTRACK}}\label{fig:deeptrack}
 \end{figure}
 
 The model was only updated when a significant change appearance change was detected
@@ -149,18 +157,20 @@ The positive samples past the first frame were also judged less than reliable an
 were assigned a label noise value that was taken into account when the model was updated.
 DeepTrack was shown to outperform other trackers in two benchmarking challenges
 spanning 60 video sequences and it reached framerates of 2--4 frames/s on powerful
-hardware.~\cite{DEEPTRACK} While not exactly real-time for all applications, the framerates are comparable
-to other methods.
+hardware.~\cite{DEEPTRACK} While not exactly real-time for all applications, the
+framerates are comparable to other methods.
 
-Another novel tracker, Multi-Domain Network~\cite{MDNET}, had domain specific classification
-layers~\ref{fig:mdnet}. Each video was treated as a separate domain and had their own branch after the
-generic layers. The generic layers consisted of three convolutions and two fully connected
-layers, while the branching domain specific classifiers were all a single fully connected
-layer for solving the binary classification problem between the target and its background.
-Training was done iteratively by training on a single domain per iteration but alternating
-between domains. Through this process, domain independent information was modelled to
-obtain generic feature representations that were resilient to common variations such as
-illumination changes and scale variations.~\cite{MDNET}
+\subsubsection{Multi-Domain Network}
+Another novel tracker, Multi-Domain Network~\cite{MDNET}, used domain specific
+classification layers (fig.~\ref{fig:mdnet}). Each video was treated as a separate domain
+and had their own branch after the generic layers. The generic layers consisted of three
+convolutions and two fully connected layers, while the branching domain specific
+classifiers were all a single fully connected layer for solving the binary classification
+problem between the target and its background. Training was done iteratively by training
+on a single domain per iteration but alternating between domains. Through this process,
+domain independent information was modelled to obtain generic feature representations
+that were resilient to common variations such as illumination changes and scale
+variations.~\cite{MDNET}
 
 \begin{figure}[H]
 \centering
@@ -168,7 +178,7 @@ illumination changes and scale variations.~\cite{MDNET}
 \caption{A depiction of the Multi-Domain Network. This form was used during training
          to train generic features with a domain specific final classification layer.
          The online version replaced the branches with a single randomized classifier
-         to be tuned during tracking.~\cite{MDNET} Source: Nam and Han fig.~1~\cite{MDNET}}\label{fig:mdnet}
+         to be tuned during tracking.~\cite{MDNET} Source: Nam and Han~\cite{MDNET}}\label{fig:mdnet}
 \end{figure}
 
 In online tracking, the domain specific branches are substituted by a single randomly
@@ -181,23 +191,24 @@ redundant or irrelevant to the current frame. Evaluation of the tracker showed g
 performance in two benchmarks with other tracking algorithms. A tracking speed of
 1 frame/s was reached on a quad-core CPU and moderately powerful GPU.~\cite{MDNET}
 
+\subsubsection{Fully convolutional tracker}
 Wang et.~al.~\cite{FCN_TRACK_2} observed that many of the earlier works treated \ac{dnn}s
 as black-box classifiers. They took a different approach and studied the properties of
 \ac{cnn} features from the perspective of online visual tracking. Two realizations
 emerged from the results. First, different properties from different depths of features
 fit the problem. High-level features help distinguishing object classes while lower
-layers provide features for discerning the target from distracters. The new tracker was
-designed to switch between the two types based on the current distracters. Second, the
-features trained on classification data are for distinguishing generic objects and some
-of them might serve as noise in tracking. Thus, a method was proposed for discarding
-noisy or unrelated feature maps for the target.~\cite{FCN_TRACK_2}
+layers provide features for discerning the target from distracters. The new tracker
+(fig.~\ref{fig:fcn}) was designed to switch between the two types based on the current
+distracters. Second, the features trained on classification data are for distinguishing
+generic objects and some of them might serve as noise in tracking. Thus, a method was
+proposed for discarding noisy or unrelated feature maps for the target.~\cite{FCN_TRACK_2}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{fcn_track}
 \caption{Two branches of convolutions evaluated the target position from different
          levels of features and the branch used in determining the position was decided
-         based on the current scene. Source: Wang et.~al.~fig.~5~\cite{FCN_TRACK_2}}\label{fig:mdnet}
+         based on the current scene. Source: Wang et.~al.~\cite{FCN_TRACK_2}}\label{fig:fcn}
 \end{figure}
 
 The tracker was built on top of the 16-layer VGG network~\cite{VGG} and the layers

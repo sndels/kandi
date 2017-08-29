@@ -31,42 +31,17 @@ kuvien soosit tekijöillä vai otsikolla?
 
 Miitti:
     yleiset
-        viittaa kaikkiin kuviin tekstissä
-        kuvasooseihin ei välttämättä numeroita
-        deep learningiin myös luvut viittauksiin
         tsekkaa, saisko kuvat vektorina ulos artikkeleista
 
     johdanto
         korosta johdannon kakkoskappaleen huomioita myöhemmin "tuloksissa"
-        nelosen rakenne esiteltynä johdannossa
-        tutkimuskysymykset i) kyssäri ii) kyssäri iii) kyssäri
-
-    luvut 2 ja 3 päittäin
-
-    deeplearning
-        sections 2.1 and 2.2
-        2.1
-            mainitse myös sigmoid
-            bias summaan ennen aktivaatiota
-        2.2
-            konvoluution toteutus _liikuttamalla_ kerneliä
-            useita kerneleitä (per piirre / kanavien määrä)
-            11x11x3 ja 48 kerneliä
-        2.3
-            lähde myös alkuun, jos vain yksi
-            ei vaadi labeloitua dataa, joten soveltuu hyvin ohjaamattomaan opetukseen
-
-    object tracking
-        "methods have been review in [review-artikkeli] and [review-artikkeli]"
 
     dnns in tracking
         alkuun syvien trakkerien ja perinteisten menetelmien erot lyhyesti
-        lukuun 4.2 alaotsikoita tai vähintään kappaleiden alkuun viittaus edelliseen, jos käsittely jatkuu
         loppuun tai omaksi luvukseen discussion ja lyhyt conclusions
-    
+
     conclusions
         branchaustrendin hyödyt, syyt lyhyesti
 
     lähteet
-        arXivit doiden tapaan tai ne ja doit linkkeinä
-        siivoa saman konffan/soosin lähteet yhtenäisiksi
+        accessed-notet urleihin
