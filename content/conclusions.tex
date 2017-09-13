@@ -1,43 +1,7 @@
 \section{Conclusions}
 
-This thesis first presented the basic theory of \ac{dnn}s and object tracking to
-provide basis for understanding the motivations to apply \ac{dnn} architectures
-to tracking. Several novel and successful trackers were then reviewed with an emphasis
-on their architectures and the reasoning used in the design. Common advantages and
-drawbacks compared to traditional tracking methods were also noted.
+This thesis first presented the basic theory of object tracking and \ac{dnn}s to provide basis for understanding the motivations in applying \ac{dnn} architectures to tracking. Several novel and successful trackers were then reviewed with an emphasis on their architectures and the reasoning used in design. Common advantages and drawbacks compared to traditional tracking methods were also noted.
 
-\ac{dnn}s are seen as a potential alternative to hand-crafted low-level models in
-object tracking. The traditional methods work well in well controlled environments
-but can have difficulties tracking in difficult conditions like partial occlusion
-of the target or motion blur. The hiearchical generic features a \ac{dnn} learns
-are more resilient against such challenges which is a common motivation for developing
-a tracker using \ac{dnn}s. Learning feature representations from training is also seen
-as a potential alternative to hand-tuning a traditional model which typically requires
-domain specific knowledge.~\cite{DLT}
+\ac{dnn}s are seen as a potential alternative to hand-crafted low-level models in object tracking. The traditional methods work well in well controlled environments but can have difficulties tracking in challenging conditions like partial occlusion of the target or motion blur. The hiearchical generic features a \ac{dnn} learns are more resilient against such challenges which is a common motivation for developing trackers that use \ac{dnn}s. Learning feature representations from training is also seen as a potential alternative to hand-tuning a traditional model that typically requires domain specific knowledge.~\cite{DLT}
 
-Recent work has used both \ac{cnn}~\cite{DEEPTRACK}~\cite{MDNET}~\cite{VGG} and
-\ac{sdae}~\cite{BLUR_TRACK} based methods for feature extraction but \ac{cnn} is
-clearly the dominant approach. This is likely due to the wide use of them in classification
-and detection tasks since their good performance in the ImageNet challenge~\cite{NIPS_IMAGENET}.
-A noticeable trend in some trackers was the use of branching in the network to extract
-different levels of features from sequences~\cite{MDNET}~\cite{FCN_TRACK_2}.
-
-The research on using \ac{dnn}s in trackers is still very young and The number of
-publications is relatively small. Good comparisons have not been made between many
-of the more recent methods and the publications themselves have contained benchmarks
-on different sets of test sequences or slighty differing representations of performance.
-While certainly interesting, the process of benchmarking is beyond the scope of this
-thesis because it could require modifying the trackers to work with input and output~\cite{OT_BENCH}.
-All the publications did themselves present evaluation results to show improvements
-over other methods on the selected test sets. Tracking speed fell mostly in the area
-of only a few frames/s with only one tracker claiming a speed of up to 10 frames/s~\cite{BLUR_TRACK}.
-It should be noted that the implementations were not said to be optimized and some of
-them only ran on the CPU~\cite{LEARNED_HIERARCH} so advanced optimization techniques and
-the utilization of a GPU could result in more viable real-time tracking.
-
-In conclusion, the research of \ac{dnn} based object tracking is still young and
-trackers have been proposed with emphasis on different challenges. Better generalization
-and being less affected by challenging conditions are common motivations for choosing
-deep features over traditional hand-crafted ones and trackers using \ac{dnn}s have
-shown competitive performance when put against traditional trackers. However, real-time
-performance is still difficult to attain even with the advance in the hardware available.
+The research of \ac{dnn} based object tracking is still young and trackers have been proposed with emphasis on different challenges. Better generalization and being less affected by challenging conditions are common motivations for choosing deep features over traditional hand-crafted ones and trackers using \ac{dnn}s have shown competitive performance when put against traditional trackers \cite{DEEPTRACK}. However, most \ac{dnn} trackers require pre-training and real-time performance is still difficult to attain even with the advance in computing power.

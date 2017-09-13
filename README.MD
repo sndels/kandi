@@ -1,3 +1,3 @@
 ## Kandi
 
-This is going to contain my bachelor's thesis. At some point. Hopefully.
+My bachelor's thesis on "Object tracking with deep neural networks"
